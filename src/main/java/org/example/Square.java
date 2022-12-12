@@ -6,67 +6,54 @@ public class Square {
     private final boolean isTaken;
     public int x;
     public int y;
-    public Square[] neighbours = new Square[4];
-    ArrayList<Square> diagonal;
-    public Square(boolean isTaken) {
-        this.isTaken = isTaken;
 
+    final private int limit;
+
+    ArrayList<Square> diagonal;
+    public Square(boolean isTaken, int limit) {
+        this.isTaken = isTaken;
+        this.limit = limit;
     }
     public boolean isTaken() {
         return isTaken;
     }
-    public void setNeighbours() {
-        setTopLeftNeighbour();
-        setTopRightNeighbour();
-        setBottomLeftNeighbour();
-        setBottomRightNeighbour();
-    }
 
-    private void setBottomRightNeighbour() {
-        if (x == 9 || y == 9) {
-            neighbours[3] = null;
+    public Square getBottomRightNeighbour() {
+        if (this.x == limit-1 || this.y == limit-1) {
+            return null;
         }
         else {
-            neighbours[3] = CheckersBoard.board[x + 1][y + 1];
+            return CheckersBoard.board[x + 1][y + 1];
         }
     }
 
-    private void setBottomLeftNeighbour() {
-        if (x == 9 || y == 0) {
-            neighbours[2] = null;
+    public Square getBottomLeftNeighbour() {
+        if (this.x == 0 || this.y == limit-1) {
+            return null;
         }
         else {
-            neighbours[2] = CheckersBoard.board[x + 1][y - 1];
+            return CheckersBoard.board[x - 1][y + 1];
         }
     }
 
-    private void setTopRightNeighbour() {
-        if (x == 0 || y == 9) {
-            neighbours[1] = null;
+    public Square getTopRightNeighbour() {
+        if (this.x == limit-1 || this.y == 0) {
+            return null;
         }
         else {
-            neighbours[1] = CheckersBoard.board[x - 1][y + 1];
+            return CheckersBoard.board[x + 1][y - 1];
         }
     }
 
-    private void setTopLeftNeighbour() {
-        if (x == 0 || y == 0) {
-            neighbours[0] = null;
+    public Square getTopLeftNeighbour() {
+        if (this.x == 0 || this.y == 0) {
+            return null;
         }
         else {
-            neighbours[0] = CheckersBoard.board[x - 1][y - 1];
+            return CheckersBoard.board[x - 1][y - 1];
         }
     }
 
-    public Square[] getNeighbours() {
-        System.out.println(x);
-        System.out.println(y);
-        System.out.println("0: " + neighbours[0]);
-        System.out.println("1: " + neighbours[1]);
-        System.out.println("2: " + neighbours[2]);
-        System.out.println("3: " + neighbours[3]);
-        return neighbours;
-    }
     private void getTopLeftDiagonal() {
 
     }

@@ -1,22 +1,31 @@
 import org.example.CheckersBoard;
-import org.example.Square;
+
 import org.junit.Assert;
 import org.junit.Test;
 public class NeighboursTest {
     CheckersBoard checkersBoard = new CheckersBoard();
-    Square[] neighbours;
     @Test
-    public void getNeighboursTest() {
+    public void getNeighboursTestBasic() {
         checkersBoard.createBoard();
-        //Square from which we get neighbours
-        neighbours = CheckersBoard.board[1][2].getNeighbours();
         //TopLeft
-        Assert.assertEquals(CheckersBoard.board[0][1], neighbours[0]);
+        Assert.assertEquals(CheckersBoard.board[0][1], CheckersBoard.board[1][2].getTopLeftNeighbour());
         //TopRight
-        Assert.assertEquals(CheckersBoard.board[0][3], neighbours[1]);
+        Assert.assertEquals(CheckersBoard.board[2][1], CheckersBoard.board[1][2].getTopRightNeighbour());
         //BottomLeft
-        Assert.assertEquals(CheckersBoard.board[2][1], neighbours[2]);
+        Assert.assertEquals(CheckersBoard.board[0][3], CheckersBoard.board[1][2].getBottomLeftNeighbour());
         //BottomRight
-        Assert.assertEquals(CheckersBoard.board[2][3], neighbours[3]);
+        Assert.assertEquals(CheckersBoard.board[2][3], CheckersBoard.board[1][2].getBottomRightNeighbour());
+    }
+    @Test
+    public void getNeighboursTestAdvanced() {
+        checkersBoard.createBoard();
+        //TopLeft
+        Assert.assertEquals(CheckersBoard.board[8][1], CheckersBoard.board[9][2].getTopLeftNeighbour());
+        //TopRight
+        Assert.assertNull(CheckersBoard.board[9][2].getTopRightNeighbour());
+        //BottomLeft
+        Assert.assertEquals(CheckersBoard.board[8][3], CheckersBoard.board[9][2].getBottomLeftNeighbour());
+        //BottomRight
+        Assert.assertNull(CheckersBoard.board[9][2].getBottomRightNeighbour());
     }
 }
