@@ -2,6 +2,8 @@ package org.example;
 
 public interface Piece {
     void checkLegalMoves();
-    String getTeam();
-    void setTeam(String team);
+    Team getTeam();
+    void setWhite();
+    void setBlack();
+    enum Team{BLACK, WHITE}
 }
