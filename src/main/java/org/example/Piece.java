@@ -7,5 +7,7 @@ public interface Piece {
     void setBlack();
     void setCurrentNeighbours(Square[] neighbours);
     void setCurrentCoordinates(int x, int y);
+    int[] getForwardIds();
+    int[] getBackwardIds();
     enum Team{BLACK, WHITE}
 }
