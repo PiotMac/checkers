@@ -4,34 +4,54 @@ public class CheckersBoard {
 
     final static private int lim = 10; //rozmiar szachownicy
     public static Square[][] board = new Square[lim][lim];
+    private int id = 1;
     public void createBoard() {
         for (int i = 0; i < lim; i++) {
-            if (i % 2 == 0 && i != 4) {
+            if (i % 2 == 0) {
                 for (int j = 0; j < lim; j++) {
                     if (j % 2 != 0) {
-                        board[i][j] = new Square(true, lim);
+                        board[i][j] = new Square(lim);
+                        board[i][j].setAsPlayable();
+                        board[i][j].setId(id);
+                        board[i][j].setCoordinates(i, j);
+                        id++;
                     }
                     else {
-                        board[i][j] = new Square(false, lim);
+                        board[i][j] = null;
                     }
-                    board[i][j].setCoordinates(i, j);
-                }
-            }
-            else if (i % 2 != 0 && i != 5){
-                for (int j = 0; j < lim; j++) {
-                    if (j % 2 == 0) {
-                        board[i][j] = new Square(true, lim);
-                    }
-                    else {
-                        board[i][j] = new Square(false, lim);
-                    }
-                    board[i][j].setCoordinates(i, j);
                 }
             }
             else {
                 for (int j = 0; j < lim; j++) {
-                    board[i][j] = new Square(false, lim);
-                    board[i][j].setCoordinates(i, j);
+                    if (j % 2 == 0) {
+                        board[i][j] = new Square(lim);
+                        board[i][j].setAsPlayable();
+                        board[i][j].setId(id);
+                        board[i][j].setCoordinates(i, j);
+                        id++;
+                    }
+                    else {
+                        board[i][j] = null;
+                    }
+                }
+            }
+        }
+        //For every playable square set neighbours
+        for (int i = 0; i < lim; i++) {
+            for (int j = 0; j < lim; j++) {
+                if (board[i][j] != null) {
+                    board[i][j].setNeighbours();
+                }
+            }
+        }
+        //Set starting pieces
+        for (int i = 0; i < lim; i++) {
+            for (int j = 0; j < lim; j++) {
+                if (board[i][j] != null && i < lim/2 - 1) {
+                    board[i][j].setPiece(Piece.Team.WHITE);
+                }
+                else if (board[i][j] != null && i >= lim/2 + 1) {
+                    board[i][j].setPiece(Piece.Team.BLACK);
                 }
             }
         }
@@ -40,18 +60,27 @@ public class CheckersBoard {
     private void printBoard() {
         for (int i = 0; i < lim; i++) {
             for (int j = 0; j < lim; j++) {
-                //TODO: Add Square.isTaken().getTeam() method
-                if (board[i][j].isTaken() && i <= 3) {
-                    System.out.print("| X | ");
+                if (board[i][j] == null) {
+                    System.out.print("|❌| ");
                 }
-                else if (board[i][j].isTaken() && i >= 6) {
-                    System.out.print("| O | ");
+                else if (!(board[i][j].isTaken())){
+                    System.out.print("|\uD83D\uDFEB| ");
                 }
-                else {
-                    System.out.print("|---| ");
+                else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.BLACK) {
+                    System.out.print("|⚫| ");
+                }
+                else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.WHITE) {
+                    System.out.print("|⚪| ");
                 }
             }
             System.out.println();
+        }
+        for (int i = 0; i < lim; i++) {
+            for (int j = 0; j < lim; j++) {
+                if (board[i][j] != null && board[i][j].isTaken() && board[i][j].piece.getTeam() == Piece.Team.WHITE) {
+                    board[i][j].piece.checkLegalMoves();
+                }
+            }
         }
     }
 }

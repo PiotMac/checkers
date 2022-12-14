@@ -3,15 +3,11 @@ package org.example;
 public class RegularPiece implements Piece{
     private Team team;
     private Team opposingTeam;
-    Square currentSquare;
-    private final Square[] neighbours = {
-            currentSquare.getTopLeftNeighbour(),
-            currentSquare.getTopRightNeighbour(),
-            currentSquare.getBottomLeftNeighbour(),
-            currentSquare.getBottomRightNeighbour()
-    };
+    public int x;
+    public int y;
+    private Square[] neighbours;
 
-
+    @Override
     public void checkLegalMoves() {
         /*
             check neighbouring squares
@@ -35,21 +31,35 @@ public class RegularPiece implements Piece{
          */
 
         for (int i = 0; i<4; i++) {
-            if (!neighbours[i].isTaken()) {
-                System.out.println("You can go to ");
+            if (neighbours[i] != null && !neighbours[i].isTaken()) {
+                System.out.println("Piece at coordinates " + x + " and " + y + " can go to square: " + neighbours[i].id);
                 neighbours[i].getCoordinates();
             }
         }
     }
+    @Override
     public void setWhite(){
         this.team = Team.WHITE;
         this.opposingTeam = Team.BLACK;
     }
+    @Override
     public void setBlack() {
         this.team = Team.BLACK;
         this.opposingTeam = Team.WHITE;
     }
+
+    @Override
+    public void setCurrentNeighbours(Square[] neighbours) {
+        this.neighbours = neighbours;
+    }
+
+    @Override
     public Team getTeam() {
         return this.team;
+    }
+    @Override
+    public void setCurrentCoordinates(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }
