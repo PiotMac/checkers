@@ -60,9 +60,11 @@ public class CheckersBoard {
             for (int j = 0; j < lim; j++) {
                 if (board[i][j] != null && i < lim/2 - 1) {
                     board[i][j].setPiece(Piece.Team.WHITE);
+                    board[i][j].piece.setCurrentSquareId(board[i][j].getId());
                 }
                 else if (board[i][j] != null && i >= lim/2 + 1) {
                     board[i][j].setPiece(Piece.Team.BLACK);
+                    board[i][j].piece.setCurrentSquareId(board[i][j].getId());
                 }
             }
         }
