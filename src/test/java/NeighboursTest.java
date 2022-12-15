@@ -3,10 +3,10 @@ import org.example.CheckersBoard;
 import org.junit.Assert;
 import org.junit.Test;
 public class NeighboursTest {
-    CheckersBoard checkersBoard = new CheckersBoard();
+    CheckersBoard checkersBoard = new CheckersBoard(10);
     @Test
     public void getNeighboursTestBasic() {
-        checkersBoard.createBoard();
+        checkersBoard.getBoard();
         //TopLeft
         Assert.assertEquals(CheckersBoard.board[0][1], CheckersBoard.board[1][2].getTopLeftNeighbour());
         //TopRight
@@ -18,7 +18,7 @@ public class NeighboursTest {
     }
     @Test
     public void getNeighboursTestAdvanced() {
-        checkersBoard.createBoard();
+        checkersBoard.getBoard();
         //TopLeft
         Assert.assertEquals(CheckersBoard.board[8][1], CheckersBoard.board[9][2].getTopLeftNeighbour());
         //TopRight
