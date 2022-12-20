@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="996fd68b-7f4e-4dd2-acaf-b53a322db4af" name="Changes" comment="">
+    <list default="true" id="996fd68b-7f4e-4dd2-acaf-b53a322db4af" name="Changes" comment="Still server and client stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/Checkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/Checkers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Square.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +57,7 @@
       <command value="mvn test" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CheckersClient">
+  <component name="RunManager" selected="Application.CheckersServerThread">
     <configuration name="CheckersClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.CheckersClient" />
       <module name="checkers" />
@@ -148,7 +146,7 @@
       <workItem from="1671410592161" duration="9458000" />
       <workItem from="1671494247175" duration="8377000" />
       <workItem from="1671554007470" duration="5681000" />
-      <workItem from="1671567268836" duration="1666000" />
+      <workItem from="1671567268836" duration="4765000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -157,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670862696691</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Still server and client stuff">
+      <created>1671569287905</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1671569287905</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,7 +181,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Square and Board 1st attempt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Square and Board 1st attempt" />
+    <MESSAGE value="Still server and client stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Still server and client stuff" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

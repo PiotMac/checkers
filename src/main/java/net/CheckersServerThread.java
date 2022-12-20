@@ -31,20 +31,10 @@ public class CheckersServerThread
                 String choice = inF.readLine();
                 client = new CheckersClient();
                 switch (choice) {
-                    case "1":
-                        checkersBoard = new CheckersBoard(10);
-                        //frame = new CheckersClient(new CheckersBoard(10));
-                        break;
-                    case "2":
-                        checkersBoard = new CheckersBoard(8);
-                        //frame = new CheckersClient(new CheckersBoard(8));
-                        break;
-                    case "3":
-                        checkersBoard = new CheckersBoard(12);
-                        //frame = new CheckersClient(new CheckersBoard(12));
-                        break;
-                    default:
-                        throw new IllegalArgumentException();
+                    case "1" -> checkersBoard = new CheckersBoard(10);
+                    case "2" -> checkersBoard = new CheckersBoard(8);
+                    case "3" -> checkersBoard = new CheckersBoard(12);
+                    default -> throw new IllegalArgumentException();
                 }
                 board = checkersBoard.getBoard();
 

@@ -2,16 +2,15 @@ package net;
 
 import java.io.*;
 import java.net.Socket;
-import org.example.*;
 
 public class Checkers implements Runnable {
-    private Socket firstPlayer;
-    private Socket secondPlayer;
+    private final Socket firstPlayer;
+    private final Socket secondPlayer;
     private final static int FIRST=1;
     private final static int SECOND=2;
     private static int turn=FIRST;
-    private int[] first_click = new int[2];
-    private int[] second_click = new int[2];
+    private final int[] first_click = new int[2];
+    private final int[] second_click = new int[2];
 
     public Checkers(Socket firstPlayer, Socket secondPlayer) {
         this.firstPlayer = firstPlayer;
@@ -89,8 +88,5 @@ public class Checkers implements Runnable {
         catch (IOException ex) {
             System.err.println("ex");
         }
-    }
-    private void sendMove(DataOutputStream out, String text) throws IOException {
-        out.writeChars(text);
     }
 }
