@@ -28,13 +28,13 @@ public class Square {
         else {
             piece.setBlack();
         }
-        setTaken();
+        setTaken(true);
     }
     public boolean isPlayable() {
         return isPlayable;
     }
-    private void setTaken() {
-        isTaken = true;
+    public void setTaken(boolean truth) {
+        isTaken = truth;
     }
     public boolean isTaken() {
         return isTaken;

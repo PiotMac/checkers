@@ -10,6 +10,8 @@ public class Checkers implements Runnable {
     private final static int FIRST=1;
     private final static int SECOND=2;
     private static int turn=FIRST;
+    private int[] first_click = new int[2];
+    private int[] second_click = new int[2];
 
     public Checkers(Socket firstPlayer, Socket secondPlayer) {
         this.firstPlayer = firstPlayer;
@@ -34,28 +36,51 @@ public class Checkers implements Runnable {
             OutputStream outputS = secondPlayer.getOutputStream();
             PrintWriter outS = new PrintWriter(outputS, true);
 
-            outF.println("1");
-            outS.println("2");
+            //outF.println("1");
+            //outS.println("2");
 
             String line;
             do {
                 if (turn==SECOND) {
                     // Odbieranie od socketa
                     line = inS.readLine();
+                    String[] coordinates = line.split(" ");
+                    first_click[0] = Integer.parseInt(coordinates[0]);
+                    first_click[1] = Integer.parseInt(coordinates[1]);
+                    second_click[0] = Integer.parseInt(coordinates[2]);
+                    second_click[1] = Integer.parseInt(coordinates[3]);
                     // Wypisywanie na serwerze
-                    System.out.println(line);
+                    System.out.println("Coordinates of the first click:");
+                    System.out.println("X:= " + first_click[0] + ", Y:= " + first_click[1]);
+                    System.out.println("Coordinates of the second click:");
+                    System.out.println("X:= " + second_click[0] + ", Y:= " + second_click[1]);
                     // Wysylanie do socketa
-                    outF.println("-> (" + line + ")");
+                    //If move is legal, then send 0.
+                    //outS.println("0");
+                    outS.println("0");
+                    //Sending moves to another player
+                    outF.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1]);
                     turn=FIRST;
                 }
 
                 if (turn==FIRST) {
                     // Odbieranie od socketa
                     line = inF.readLine();
+                    String[] coordinates = line.split(" ");
+                    first_click[0] = Integer.parseInt(coordinates[0]);
+                    first_click[1] = Integer.parseInt(coordinates[1]);
+                    second_click[0] = Integer.parseInt(coordinates[2]);
+                    second_click[1] = Integer.parseInt(coordinates[3]);
                     // Wypisywanie na serwerze
-                    System.out.println(line);
+                    System.out.println("Coordinates of the first click:");
+                    System.out.println("X:= " + first_click[0] + ", Y:= " + first_click[1]);
+                    System.out.println("Coordinates of the second click:");
+                    System.out.println("X:= " + second_click[0] + ", Y:= " + second_click[1]);
                     // Wysylanie do socketa
-                    outS.println("-> (" + line + ")");
+                    //If move is legal, then send 0.
+                    outF.println("0");
+                    //Sending moves to another player
+                    outS.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1]);
                     turn=SECOND;
                 }
             } while (true);
