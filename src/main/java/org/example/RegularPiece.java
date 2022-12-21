@@ -10,13 +10,14 @@ public class RegularPiece implements Piece{
     public int x;
     public int y;
     private Square[] neighbours;
-    private int currentSquareId;
 
-    private void checkCapture(Square sq, int direction, List<Integer> pc, List<Integer> pm) {
+
+    private void checkCapture(Square sq, int direction, List<Integer> pc, List<int[]> pm) {
         if (sq.isTaken() && sq.getTeam()==this.opposingTeam){
             Square squareBehind = sq.getNeighbours()[direction];
             if (!squareBehind.isTaken()) {
-                pm.add(squareBehind.getId());
+                int[] possibleMoveIds = {squareBehind.getX(),squareBehind.getY()};
+                pm.add(possibleMoveIds);
                 pc.add(1);
                 System.out.println("Capture possible"); //placeholder
                 //create new board in same state as current state
@@ -26,9 +27,9 @@ public class RegularPiece implements Piece{
         }
     }
     @Override
-    public void checkLegalMoves() {
+    public List<int[]> checkLegalMoves() {
         List<Integer> possibleCaptures = new ArrayList<>();
-        List<Integer> possibleMoves = new ArrayList<>();
+        List<int[]> possibleMoves = new ArrayList<>();
         for (int i : this.getBackwardIds()) {
             if (neighbours[i]!=null) {
                 checkCapture(neighbours[i], i, possibleCaptures, possibleMoves);
@@ -38,7 +39,8 @@ public class RegularPiece implements Piece{
             if (neighbours[i]!=null){
                 if (!neighbours[i].isTaken()) {
                     //make available if no capture opportunities available
-                    possibleMoves.add(neighbours[i].getId());
+                    int[] possibleMoveIds = {neighbours[i].getX(),neighbours[i].getY()};
+                    possibleMoves.add(possibleMoveIds);
                     possibleCaptures.add(0);
                 }
                 checkCapture(neighbours[i],i, possibleCaptures, possibleMoves);
@@ -46,14 +48,18 @@ public class RegularPiece implements Piece{
         }
 
         if (possibleMoves.size()>0) {
+            List<int[]> legalMoves = new ArrayList<>();
             for (int i = 0; i < possibleMoves.size(); i++) {
                 if (possibleCaptures.get(i).equals(Collections.max(possibleCaptures))) {
-                    System.out.println("Move possible for piece on square "+ this.currentSquareId+": "+possibleMoves.get(i));
+                    //System.out.println("Move possible for piece on square ["+ this.x +", "+this.y+"]: "+possibleMoves.get(i)[0]+", "+possibleMoves.get(i)[1]);
+                    legalMoves.add(possibleMoves.get(i));
                 }
             }
+            return legalMoves;
         }
         else {
-            System.out.println("No move possible for piece on square "+this.currentSquareId);
+            //System.out.println("No move possible for piece on square ["+ this.x +", "+this.y+"]");
+            return null;
         }
 
     }
@@ -99,8 +105,5 @@ public class RegularPiece implements Piece{
         else {
             return new int[]{2,3};
         }
-    }
-    public void setCurrentSquareId(int id) {
-        this.currentSquareId = id;
     }
 }

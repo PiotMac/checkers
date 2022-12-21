@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
+import java.util.List;
 
 public class CheckersClient extends Frame implements  ActionListener {
     int []first_click;
@@ -21,6 +22,7 @@ public class CheckersClient extends Frame implements  ActionListener {
     GridLayout grid;
     private Piece.Team thisPlayerTeam;
     private Piece.Team anotherPlayerTeam;
+    Font font = new Font("Arial", Font.PLAIN, 20);
 
     public CheckersClient() {}
     public void setClient() {
@@ -38,12 +40,8 @@ public class CheckersClient extends Frame implements  ActionListener {
         frame.size = frame.checkersBoard.getSize();
         frame.buttons = new Button[size * size];
         frame.board = checkersBoard.getBoard();
-        frame.first_click = new int[2];
-        frame.second_click = new int[2];
-        for (int i = 0; i < 2; i++) {
-            frame.first_click[i] = -1;
-            frame.second_click[i] = -1;
-        }
+        frame.first_click = new int[]{-1, -1};
+        frame.second_click = new int[]{-1, -1};
         frame.grid = new GridLayout(size, size);
         super.setLayout(frame.grid);
         super.addWindowListener(new WindowAdapter() {
@@ -63,7 +61,7 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (board[i][j] == null) {
+                if ((i+j)%2==0) {
                     buttons[count] = new Button("");
                     buttons[count].setBackground(Color.BLACK);
                     buttons[count].addActionListener(this);
@@ -77,12 +75,14 @@ public class CheckersClient extends Frame implements  ActionListener {
                     super.add(buttons[count]);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.BLACK) {
                     buttons[count] = new Button("⚫");
+                    buttons[count].setFont(font);
                     buttons[count].setBackground(Color.WHITE);
                     buttons[count].addActionListener(this);
                     buttons[count].setActionCommand("" + i + " " + j);
                     super.add(buttons[count]);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.WHITE) {
                     buttons[count] = new Button("⦾");
+                    buttons[count].setFont(font);
                     buttons[count].setBackground(Color.WHITE);
                     buttons[count].addActionListener(this);
                     buttons[count].setActionCommand("" + i + " " + j);
@@ -122,7 +122,9 @@ public class CheckersClient extends Frame implements  ActionListener {
             str = frame.in.readLine();
             String[] coordinates = str.split(" ");
             //If this player made a move
+
             if (coordinates.length == 1 && Integer.parseInt(coordinates[0]) == 0) {
+
                 frame.board[frame.first_click[0]][frame.first_click[1]].setTaken(false);
                 frame.board[frame.second_click[0]][frame.second_click[1]].setPiece(thisPlayerTeam);
                 super.setTitle("Opponent's turn!");
@@ -131,6 +133,7 @@ public class CheckersClient extends Frame implements  ActionListener {
             }
             //If another player made a move
             else {
+
                 frame.board[Integer.parseInt(coordinates[0])][Integer.parseInt(coordinates[1])].setTaken(false);
                 frame.board[Integer.parseInt(coordinates[2])][Integer.parseInt(coordinates[3])].setPiece(anotherPlayerTeam);
                 super.setTitle("Your turn!");
@@ -204,6 +207,14 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
     }
 
+    public boolean checkForMoves(List<int[]> moveList, int[] element) {
+        for (int[] ints : moveList) {
+            if (ints[0] == element[0] && ints[1] == element[1]) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Invoked when an action occurs.
      *
@@ -225,16 +236,23 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
         //Getting coordinates of the second click
         else if (frame.second_click[0] == -1) {
+            List<int[]> legalMoves = frame.board[frame.first_click[0]][frame.first_click[1]].piece.checkLegalMoves();
+
             frame.second_click[0] = Integer.parseInt(coordinatesString[0]);
             frame.second_click[1] = Integer.parseInt(coordinatesString[1]);
+            int[] coordinates = {frame.second_click[0], frame.second_click[1]};
 
-            System.out.println(frame.first_click[0]);
-            System.out.println(frame.first_click[1]);
-            System.out.println(frame.second_click[0]);
-            System.out.println(frame.second_click[1]);
+            if(frame.board[frame.second_click[0]][frame.second_click[1]] == null || legalMoves == null || !(checkForMoves(legalMoves,coordinates))) {
+                System.out.println("Not a legal move!");
+            } else {
+                System.out.println(frame.first_click[0]);
+                System.out.println(frame.first_click[1]);
+                System.out.println(frame.second_click[0]);
+                System.out.println(frame.second_click[1]);
 
-            send();
-            receive();
+                send();
+                receive();
+            }
             for (int i = 0; i < 2; i++) {
                 frame.first_click[i] = -1;
                 frame.second_click[i] = -1;

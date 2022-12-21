@@ -1,7 +1,9 @@
 package org.example;
 
+import java.util.List;
+
 public interface Piece {
-    void checkLegalMoves();
+    List<int[]> checkLegalMoves();
     Team getTeam();
     void setWhite();
     void setBlack();

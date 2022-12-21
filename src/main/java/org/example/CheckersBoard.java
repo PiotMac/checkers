@@ -4,7 +4,7 @@ public class CheckersBoard {
 
     private static int lim; //rozmiar szachownicy
     public static Square[][] board;
-    private int id = 1;
+
     public CheckersBoard(int limit) {
         lim = limit;
         board = new Square[lim][lim];
@@ -18,39 +18,21 @@ public class CheckersBoard {
     }
     private void createBoard() {
         for (int i = 0; i < lim; i++) {
-            if (i % 2 == 0) {
-                for (int j = 0; j < lim; j++) {
-                    if (j % 2 != 0) {
-                        board[i][j] = new Square(lim);
-                        board[i][j].setAsPlayable();
-                        board[i][j].setId(id);
-                        board[i][j].setCoordinates(i, j);
-                        id++;
-                    }
-                    else {
-                        board[i][j] = null;
-                    }
+            for (int j = 0; j < lim; j++) {
+                if ((i+j)%2 != 0) {
+                    board[i][j] = new Square(lim);
+                    board[i][j].setAsPlayable();
+                    board[i][j].setCoordinates(i, j);
                 }
-            }
-            else {
-                for (int j = 0; j < lim; j++) {
-                    if (j % 2 == 0) {
-                        board[i][j] = new Square(lim);
-                        board[i][j].setAsPlayable();
-                        board[i][j].setId(id);
-                        board[i][j].setCoordinates(i, j);
-                        id++;
-                    }
-                    else {
-                        board[i][j] = null;
-                    }
+                else {
+                    board[i][j] = null;
                 }
             }
         }
         //For every playable square set neighbours
         for (int i = 0; i < lim; i++) {
             for (int j = 0; j < lim; j++) {
-                if (board[i][j] != null) {
+                if ((i+j)%2 != 0) {
                     board[i][j].setNeighbours();
                 }
             }
@@ -58,15 +40,35 @@ public class CheckersBoard {
         //Set starting pieces
         for (int i = 0; i < lim; i++) {
             for (int j = 0; j < lim; j++) {
-                if (board[i][j] != null && i < lim/2 - 1) {
+                if ((i+j)%2 != 0 && i < lim/2 - 1) {
                     board[i][j].setPiece(Piece.Team.WHITE);
-                    board[i][j].piece.setCurrentSquareId(board[i][j].getId());
                 }
-                else if (board[i][j] != null && i >= lim/2 + 1) {
+                else if ((i+j)%2 != 0 && i >= lim/2 + 1) {
                     board[i][j].setPiece(Piece.Team.BLACK);
-                    board[i][j].piece.setCurrentSquareId(board[i][j].getId());
                 }
             }
         }
+    }
+
+    public int[] getBoardAsArray() {
+        int[] boardArray = new int[(lim*lim)/2];
+        int c = 0;
+        for (int i = 0; i < lim; i++) {
+            for (int j=0; j < lim; j++) {
+                if ((i+j)%2 != 0) {
+                    if (board[i][j].isTaken() && board[i][j].piece.getTeam() == Piece.Team.WHITE) { //&& board[i][j].piece instanceof RegularPiece) {
+                        boardArray[c]=-1;
+                    }
+                    else if (board[i][j].isTaken() && board[i][j].piece.getTeam() == Piece.Team.BLACK) {
+                        boardArray[c]=1;
+                    }
+                    else {
+                        boardArray[c]=0;
+                    }
+                    c=c+1;
+                }
+            }
+        }
+        return boardArray;
     }
 }

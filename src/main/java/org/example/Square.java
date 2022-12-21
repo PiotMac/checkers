@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Square {
     private boolean isTaken = false;
     private boolean isPlayable = false;
-    public int id;
     public int x;
     public int y;
     final private int limit;
@@ -112,10 +111,10 @@ public class Square {
         return neighbours;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getX() {
+        return this.x;
     }
-    public int getId() {
-        return this.id;
+    public int getY() {
+        return this.y;
     }
 }
