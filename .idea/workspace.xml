@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="Still server and client stuff">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="simplified Checkers run function, fixed getAsArray, added move verification, got rid of square ids,">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/Checkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/Checkers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersThread.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Square.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +130,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="996fd68b-7f4e-4dd2-acaf-b53a322db4af" name="Changes" comment="" />
+      <changelist id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="simplified Checkers run function, fixed getAsArray, added move verification, got rid of square ids," />
       <created>1670839668532</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -148,6 +141,7 @@
       <workItem from="1671494247175" duration="8377000" />
       <workItem from="1671554007470" duration="5681000" />
       <workItem from="1671567268836" duration="4765000" />
+      <workItem from="1671653932377" duration="2918000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -163,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671569287905</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="simplified Checkers run function, fixed getAsArray, added move verification, got rid of square ids,">
+      <created>1671646180500</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1671646180500</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,7 +184,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Square and Board 1st attempt" />
     <MESSAGE value="Still server and client stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Still server and client stuff" />
+    <MESSAGE value="simplified Checkers run function, fixed getAsArray, added move verification, got rid of square ids," />
+    <option name="LAST_COMMIT_MESSAGE" value="simplified Checkers run function, fixed getAsArray, added move verification, got rid of square ids," />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

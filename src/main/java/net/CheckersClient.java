@@ -64,30 +64,22 @@ public class CheckersClient extends Frame implements  ActionListener {
                 if ((i+j)%2==0) {
                     buttons[count] = new Button("");
                     buttons[count].setBackground(Color.BLACK);
-                    buttons[count].addActionListener(this);
-                    buttons[count].setActionCommand("" + i + " " + j);
-                    super.add(buttons[count]);
                 } else if (!(board[i][j].isTaken())) {
                     buttons[count] = new Button("");
-                    buttons[count].setBackground(Color.WHITE);
-                    buttons[count].addActionListener(this);
-                    buttons[count].setActionCommand("" + i + " " + j);
-                    super.add(buttons[count]);
+                    buttons[count].setBackground(Color.RED);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.BLACK) {
-                    buttons[count] = new Button("⚫");
-                    buttons[count].setFont(font);
-                    buttons[count].setBackground(Color.WHITE);
-                    buttons[count].addActionListener(this);
-                    buttons[count].setActionCommand("" + i + " " + j);
-                    super.add(buttons[count]);
+                    buttons[count] = new Button("O");
+                    buttons[count].setForeground(Color.BLACK);
+                    buttons[count].setBackground(Color.RED);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.WHITE) {
-                    buttons[count] = new Button("⦾");
-                    buttons[count].setFont(font);
-                    buttons[count].setBackground(Color.WHITE);
-                    buttons[count].addActionListener(this);
-                    buttons[count].setActionCommand("" + i + " " + j);
-                    super.add(buttons[count]);
+                    buttons[count] = new Button("O");
+                    buttons[count].setForeground(Color.WHITE);
+                    buttons[count].setBackground(Color.RED);
                 }
+                buttons[count].setFont(font);
+                buttons[count].addActionListener(this);
+                buttons[count].setActionCommand("" + i + " " + j);
+                super.add(buttons[count]);
                 count++;
             }
             System.out.println();
@@ -116,6 +108,27 @@ public class CheckersClient extends Frame implements  ActionListener {
         frame.out.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1]);
     }
 
+    private void clearPieces(int firstClickX, int firstClickY, int secondClickX, int secondClickY) {
+        final int xDelta = secondClickX-firstClickX;
+        final int yDelta = secondClickY-firstClickY;
+        for (int i = 0; i<=xDelta; i++) {
+            if (xDelta > 0 && yDelta > 0) {
+                frame.board[firstClickX+i][firstClickY+i].setTaken(false);
+            }
+            if (xDelta > 0 && yDelta < 0) {
+                frame.board[firstClickX+i][firstClickY-i].setTaken(false);
+            }
+        }
+        for (int i = 0; i>=xDelta; i--) {
+            if (xDelta < 0 && yDelta > 0) {
+                frame.board[firstClickX+i][firstClickY-i].setTaken(false);
+            }
+            if (xDelta < 0 && yDelta < 0) {
+                frame.board[firstClickX+i][firstClickY+i].setTaken(false);
+            }
+        }
+    }
+
     private void receive() {
         try {
             //Odbieranie z serwera
@@ -125,7 +138,8 @@ public class CheckersClient extends Frame implements  ActionListener {
 
             if (coordinates.length == 1 && Integer.parseInt(coordinates[0]) == 0) {
 
-                frame.board[frame.first_click[0]][frame.first_click[1]].setTaken(false);
+                //frame.board[frame.first_click[0]][frame.first_click[1]].setTaken(false);
+                clearPieces(frame.first_click[0],frame.first_click[1],frame.second_click[0],frame.second_click[1]);
                 frame.board[frame.second_click[0]][frame.second_click[1]].setPiece(thisPlayerTeam);
                 super.setTitle("Opponent's turn!");
                 reprintBoard();
@@ -133,8 +147,8 @@ public class CheckersClient extends Frame implements  ActionListener {
             }
             //If another player made a move
             else {
-
-                frame.board[Integer.parseInt(coordinates[0])][Integer.parseInt(coordinates[1])].setTaken(false);
+                clearPieces(Integer.parseInt(coordinates[0]),Integer.parseInt(coordinates[1]),Integer.parseInt(coordinates[2]),Integer.parseInt(coordinates[3]));
+                //frame.board[Integer.parseInt(coordinates[0])][Integer.parseInt(coordinates[1])].setTaken(false);
                 frame.board[Integer.parseInt(coordinates[2])][Integer.parseInt(coordinates[3])].setPiece(anotherPlayerTeam);
                 super.setTitle("Your turn!");
                 reprintBoard();
