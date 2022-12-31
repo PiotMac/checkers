@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
@@ -50,9 +51,9 @@ public class CheckersClient extends Frame implements  ActionListener {
             }
         });
         //startThread();
-        reprintBoard();
+        createBoard();
     }
-    public void reprintBoard() {
+    public void createBoard() {
         int count = 0;
         if (buttons[0] != null) {
             for (Button button : buttons) {
@@ -98,6 +99,43 @@ public class CheckersClient extends Frame implements  ActionListener {
             }
         }
     }
+
+    public void reprintBoard(List<Integer> xys) {
+        int limit = (int)Math.sqrt(buttons.length);
+        for (int i = 0; i<xys.size(); i++) {
+            if (i%2==0) {
+                System.out.println("reprintDebug");
+                System.out.println(buttons.length);
+                System.out.println(xys.get(i) + " " + xys.get(i+1));
+                System.out.println(xys.get(i)*limit+xys.get(i+1));
+                if (!(board[xys.get(i)][xys.get(i+1)].isTaken())) {
+                    buttons[xys.get(i)*limit+xys.get(i+1)].setLabel("");
+                } else if (board[xys.get(i)][xys.get(i+1)].isTaken() && board[xys.get(i)][xys.get(i+1)].getTeam() == Piece.Team.BLACK) {
+                    buttons[xys.get(i)*limit+xys.get(i+1)].setLabel("O");
+                    buttons[xys.get(i)*limit+xys.get(i+1)].setForeground(Color.BLACK);
+                } else if (board[xys.get(i)][xys.get(i+1)].isTaken() && board[xys.get(i)][xys.get(i+1)].getTeam() == Piece.Team.WHITE) {
+                    buttons[xys.get(i)*limit+xys.get(i+1)].setLabel("O");
+                    buttons[xys.get(i)*limit+xys.get(i+1)].setForeground(Color.WHITE);
+                }
+                buttons[xys.get(i)*limit+xys.get(i+1)].setBackground(Color.RED);
+            }
+        }
+        super.pack();
+        super.setVisible(true);
+        if (super.getTitle().equals("Opponent's turn!")) {
+            for (Button button : buttons) {
+                button.setEnabled(false);
+            }
+            receive();
+        }
+        if (super.getTitle().equals("Your turn!")) {
+            for (Button button : buttons) {
+                button.setEnabled(true);
+            }
+        }
+    }
+
+
     private int player;
     public final static int PLAYER1 = 1;
     public final static int PLAYER2 = 2;
@@ -108,25 +146,35 @@ public class CheckersClient extends Frame implements  ActionListener {
         frame.out.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1]);
     }
 
-    private void clearPieces(int firstClickX, int firstClickY, int secondClickX, int secondClickY) {
+    private List<Integer> clearPieces(int firstClickX, int firstClickY, int secondClickX, int secondClickY) {
         final int xDelta = secondClickX-firstClickX;
         final int yDelta = secondClickY-firstClickY;
+        List<Integer> xys = new ArrayList<>();
         for (int i = 0; i<=xDelta; i++) {
             if (xDelta > 0 && yDelta > 0) {
                 frame.board[firstClickX+i][firstClickY+i].setTaken(false);
+                xys.add(firstClickX+i);
+                xys.add(firstClickY+i);
             }
             if (xDelta > 0 && yDelta < 0) {
                 frame.board[firstClickX+i][firstClickY-i].setTaken(false);
+                xys.add(firstClickX+i);
+                xys.add(firstClickY-i);
             }
         }
         for (int i = 0; i>=xDelta; i--) {
             if (xDelta < 0 && yDelta > 0) {
                 frame.board[firstClickX+i][firstClickY-i].setTaken(false);
+                xys.add(firstClickX+i);
+                xys.add(firstClickY-i);
             }
             if (xDelta < 0 && yDelta < 0) {
                 frame.board[firstClickX+i][firstClickY+i].setTaken(false);
+                xys.add(firstClickX+i);
+                xys.add(firstClickY+i);
             }
         }
+        return xys;
     }
 
     private void receive() {
@@ -139,19 +187,19 @@ public class CheckersClient extends Frame implements  ActionListener {
             if (coordinates.length == 1 && Integer.parseInt(coordinates[0]) == 0) {
 
                 //frame.board[frame.first_click[0]][frame.first_click[1]].setTaken(false);
-                clearPieces(frame.first_click[0],frame.first_click[1],frame.second_click[0],frame.second_click[1]);
+                List<Integer> xys = clearPieces(frame.first_click[0],frame.first_click[1],frame.second_click[0],frame.second_click[1]);
                 frame.board[frame.second_click[0]][frame.second_click[1]].setPiece(thisPlayerTeam);
                 super.setTitle("Opponent's turn!");
-                reprintBoard();
+                reprintBoard(xys);
                 System.out.println("Successful move!");
             }
             //If another player made a move
             else {
-                clearPieces(Integer.parseInt(coordinates[0]),Integer.parseInt(coordinates[1]),Integer.parseInt(coordinates[2]),Integer.parseInt(coordinates[3]));
+                List<Integer> xys = clearPieces(Integer.parseInt(coordinates[0]),Integer.parseInt(coordinates[1]),Integer.parseInt(coordinates[2]),Integer.parseInt(coordinates[3]));
                 //frame.board[Integer.parseInt(coordinates[0])][Integer.parseInt(coordinates[1])].setTaken(false);
                 frame.board[Integer.parseInt(coordinates[2])][Integer.parseInt(coordinates[3])].setPiece(anotherPlayerTeam);
                 super.setTitle("Your turn!");
-                reprintBoard();
+                reprintBoard(xys);
                 System.out.println("Opponent made a move!");
             }
         } catch (IOException e) {
