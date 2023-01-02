@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added fairly reliable jumping">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added badly programmed partial refreshment of the board">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
     </list>
@@ -142,7 +142,7 @@
       <workItem from="1671554007470" duration="5681000" />
       <workItem from="1671567268836" duration="4765000" />
       <workItem from="1671653932377" duration="5405000" />
-      <workItem from="1672510690620" duration="7141000" />
+      <workItem from="1672510690620" duration="10591000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -172,7 +172,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671657088913</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added badly programmed partial refreshment of the board">
+      <created>1672527597203</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1672527597203</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +201,8 @@
     <MESSAGE value="Still server and client stuff" />
     <MESSAGE value="simplified Checkers run function, fixed getAsArray, added move verification, got rid of square ids," />
     <MESSAGE value="added fairly reliable jumping" />
-    <option name="LAST_COMMIT_MESSAGE" value="added fairly reliable jumping" />
+    <MESSAGE value="added badly programmed partial refreshment of the board" />
+    <option name="LAST_COMMIT_MESSAGE" value="added badly programmed partial refreshment of the board" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

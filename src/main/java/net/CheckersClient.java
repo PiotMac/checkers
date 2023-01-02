@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 import java.util.List;
 
 public class CheckersClient extends Frame implements  ActionListener {
@@ -104,10 +103,6 @@ public class CheckersClient extends Frame implements  ActionListener {
         int limit = (int)Math.sqrt(buttons.length);
         for (int i = 0; i<xys.size(); i++) {
             if (i%2==0) {
-                System.out.println("reprintDebug");
-                System.out.println(buttons.length);
-                System.out.println(xys.get(i) + " " + xys.get(i+1));
-                System.out.println(xys.get(i)*limit+xys.get(i+1));
                 if (!(board[xys.get(i)][xys.get(i+1)].isTaken())) {
                     buttons[xys.get(i)*limit+xys.get(i+1)].setLabel("");
                 } else if (board[xys.get(i)][xys.get(i+1)].isTaken() && board[xys.get(i)][xys.get(i+1)].getTeam() == Piece.Team.BLACK) {
@@ -268,10 +263,35 @@ public class CheckersClient extends Frame implements  ActionListener {
             frame.setClient();
         }
     }
+    public List<int[]> checkForLegalMovesOnBoard() {
+        List<int[]> masterList = new ArrayList<>();
+        List<Integer> deltas = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i<frame.board.length; i++) {
+            for (int j = 0; j<frame.board.length; j++) {
+                if ((i+j)%2!=0 && frame.board[i][j].piece!=null && frame.board[i][j].piece.checkLegalMoves()!=null  && frame.board[i][j].getTeam().equals(thisPlayerTeam)) {
+                    for (int[] move : frame.board[i][j].piece.checkLegalMoves()) {
+                        int[] minorList = {i, j, move[0], move[1]};
+                        masterList.add(minorList);
+                        deltas.add(Math.abs(i-move[0]));
+                        count = count+1;
+                    }
+                }
+            }
+        }
 
-    public boolean checkForMoves(List<int[]> moveList, int[] element) {
+        List<int[]> returnList = new ArrayList<>();
+        for (int k = 0; k<count; k++) {
+            if (deltas.get(k).intValue() == Collections.max(deltas).intValue()) {
+                returnList.add(masterList.get(k));
+            }
+        }
+        return returnList;
+    }
+
+    public boolean checkForMoves(List<int[]> moveList, int[] coordinates) {
         for (int[] ints : moveList) {
-            if (ints[0] == element[0] && ints[1] == element[1]) {
+            if (ints[0] == coordinates[0] && ints[1] == coordinates[1] && ints[2] == coordinates[2] && ints[3] == coordinates[3] ) {
                 return true;
             }
         }
@@ -298,13 +318,12 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
         //Getting coordinates of the second click
         else if (frame.second_click[0] == -1) {
-            List<int[]> legalMoves = frame.board[frame.first_click[0]][frame.first_click[1]].piece.checkLegalMoves();
-
+            List<int[]> legalMovesBoard = checkForLegalMovesOnBoard();
             frame.second_click[0] = Integer.parseInt(coordinatesString[0]);
             frame.second_click[1] = Integer.parseInt(coordinatesString[1]);
-            int[] coordinates = {frame.second_click[0], frame.second_click[1]};
+            int[] coordinates = {frame.first_click[0], frame.first_click[1], frame.second_click[0], frame.second_click[1]};
 
-            if(frame.board[frame.second_click[0]][frame.second_click[1]] == null || legalMoves == null || !(checkForMoves(legalMoves,coordinates))) {
+            if(frame.board[frame.second_click[0]][frame.second_click[1]] == null || !(checkForMoves(legalMovesBoard,coordinates))) {
                 System.out.println("Not a legal move!");
             } else {
                 System.out.println(frame.first_click[0]);
