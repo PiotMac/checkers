@@ -267,35 +267,44 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
     }
     public List<int[]> checkForLegalMovesOnBoard() {
-        List<int[]> masterList = new ArrayList<>();
-        List<Integer> deltas = new ArrayList<>();
-        int count = 0;
+        List<int[]> notCaptureList = new ArrayList<>();
+        List<int[]> captureList = new ArrayList<>();
+        boolean captureAvailable = false;
         for (int i = 0; i<frame.board.length; i++) {
             for (int j = 0; j<frame.board.length; j++) {
                 if ((i+j)%2!=0 && frame.board[i][j].piece!=null && frame.board[i][j].piece.checkLegalMoves()!=null && frame.board[i][j].isTaken() && frame.board[i][j].getTeam().equals(thisPlayerTeam)) {
                     for (int[] move : frame.board[i][j].piece.checkLegalMoves()) {
-                        int[] minorList = {i, j, move[0], move[1]};
-                        masterList.add(minorList);
-                        deltas.add(Math.abs(i-move[0]));
-                        count = count+1;
+                        if (move[2]>0) {
+                            //create a recursive capture checker here...
+                            //in move[2] we can save the amount of captures available
+                            //something like Square[][] tempBoard = frame.board.clone();
+                            //clear pieces in i, j, move[3], move[4]
+                            //place piece on move[0], move[1]
+                            //check all the possibilities, if capture is available, check possibility for more(etc.)
+                            //store number of captures in move[2]
+                            //if move[2] highest in iteration, set highestCapture(int) to move[2]
+                            captureList.add(new int[]{i,j,move[0],move[1],move[2]});
+                            captureAvailable = true;
+                            notCaptureList.clear();
+                        }
+                        else if (!captureAvailable) {
+                            notCaptureList.add(new int[]{i,j,move[0],move[1],move[2]});
+                        }
                     }
                 }
             }
         }
-
-        List<int[]> returnList = new ArrayList<>();
-        for (int k = 0; k<count; k++) {
-            if (deltas.get(k).intValue() == Collections.max(deltas).intValue()) {
-                returnList.add(masterList.get(k));
-            }
-        }
-        if (Collections.max(deltas) >1) {
-            System.out.println("Capture possible.");
-            isCapturePossible = true;
+        if (captureAvailable) {
+            /*
+            once recursive:
+            create temporary list
+            if move[2] is equal to the highestCapture, add to temp list
+            return temp list
+             */
+            return captureList;
         } else {
-            isCapturePossible = false;
+            return notCaptureList;
         }
-        return returnList;
     }
 
     public boolean checkForMoves(List<int[]> moveList, int[] coordinates) {

@@ -12,50 +12,53 @@ public class RegularPiece implements Piece{
     private Square[] neighbours;
 
 
-    private void checkCapture(Square sq, int direction, List<Integer> pc, List<int[]> pm) {
+    private int[] checkCapture(Square sq, int direction) {
         if (sq.isTaken() && sq.getTeam()==this.opposingTeam){
             Square squareBehind = sq.getNeighbours()[direction];
             if (squareBehind!=null && !squareBehind.isTaken()) {
-                int[] possibleMoveIds = {squareBehind.getX(),squareBehind.getY()};
-                pm.add(possibleMoveIds);
-                pc.add(1);
-                //placeholder
-                //create new board in same state as current state
-                //make hypothetical move
-                //check for more captures
+                return new int[]{squareBehind.getX(),squareBehind.getY(), 1, sq.getX(), sq.getY()};//final squareX, final squareY, captureAvailable, jumped squareX, jumped squareY
             }
         }
+        return null;
     }
     @Override
     public List<int[]> checkLegalMoves() {
-        List<Integer> possibleCaptures = new ArrayList<>();
+        boolean captureAvailable = false;
         List<int[]> possibleMoves = new ArrayList<>();
         for (int i : this.getBackwardIds()) {
             if (neighbours[i]!=null) {
-                checkCapture(neighbours[i], i, possibleCaptures, possibleMoves);
+                if (checkCapture(neighbours[i],i)!=null) {
+                    possibleMoves.add(checkCapture(neighbours[i], i));
+                    captureAvailable = true;
+                }
             }
         }
         for (int i : this.getForwardIds()) {
             if (neighbours[i]!=null){
-                if (!neighbours[i].isTaken()) {
-                    //make available if no capture opportunities available
-                    int[] possibleMoveIds = {neighbours[i].getX(),neighbours[i].getY()};
-                    possibleMoves.add(possibleMoveIds);
-                    possibleCaptures.add(0);
+                if (checkCapture(neighbours[i],i)!=null) {
+                    possibleMoves.add(checkCapture(neighbours[i], i));
+                    captureAvailable = true;
                 }
-                checkCapture(neighbours[i],i, possibleCaptures, possibleMoves);
+                else if (!neighbours[i].isTaken()) {
+                    int[] possibleMoveIds = {neighbours[i].getX(),neighbours[i].getY(), 0, -1, -1};
+                    possibleMoves.add(possibleMoveIds);
+                }
             }
         }
 
         if (possibleMoves.size()>0) {
-            List<int[]> legalMoves = new ArrayList<>();
-            for (int i = 0; i < possibleMoves.size(); i++) {
-                if (possibleCaptures.get(i).equals(Collections.max(possibleCaptures))) {
-                    //System.out.println("Move possible for piece on square ["+ this.x +", "+this.y+"]: "+possibleMoves.get(i)[0]+", "+possibleMoves.get(i)[1]);
-                    legalMoves.add(possibleMoves.get(i));
+            if (captureAvailable) {
+                List<int[]> legalMoves = new ArrayList<>();
+                for (int[] move : possibleMoves) {
+                    if (move[2]==1) {
+                        legalMoves.add(move);
+                    }
                 }
+                return legalMoves;
             }
-            return legalMoves;
+            else {
+                return possibleMoves;
+            }
         }
         else {
             //System.out.println("No move possible for piece on square ["+ this.x +", "+this.y+"]");
