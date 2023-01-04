@@ -22,6 +22,7 @@ public class CheckersClient extends Frame implements  ActionListener {
     GridLayout grid;
     private Piece.Team thisPlayerTeam;
     private Piece.Team anotherPlayerTeam;
+    private boolean isCapturePossible = false;
     Font font = new Font("Arial", Font.PLAIN, 20);
 
     public CheckersClient() {}
@@ -138,7 +139,11 @@ public class CheckersClient extends Frame implements  ActionListener {
 
     private void send() {
         //Wysylanie do serwera
-        frame.out.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1]);
+        if (isCapturePossible) {
+            frame.out.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1] + " 1");
+        } else {
+            frame.out.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1] + " 0");
+        }
     }
 
     private List<Integer> clearPieces(int firstClickX, int firstClickY, int secondClickX, int secondClickY) {
@@ -180,8 +185,6 @@ public class CheckersClient extends Frame implements  ActionListener {
             //If this player made a move
 
             if (coordinates.length == 1 && Integer.parseInt(coordinates[0]) == 0) {
-
-                //frame.board[frame.first_click[0]][frame.first_click[1]].setTaken(false);
                 List<Integer> xys = clearPieces(frame.first_click[0],frame.first_click[1],frame.second_click[0],frame.second_click[1]);
                 frame.board[frame.second_click[0]][frame.second_click[1]].setPiece(thisPlayerTeam);
                 super.setTitle("Opponent's turn!");
@@ -269,7 +272,7 @@ public class CheckersClient extends Frame implements  ActionListener {
         int count = 0;
         for (int i = 0; i<frame.board.length; i++) {
             for (int j = 0; j<frame.board.length; j++) {
-                if ((i+j)%2!=0 && frame.board[i][j].piece!=null && frame.board[i][j].piece.checkLegalMoves()!=null  && frame.board[i][j].getTeam().equals(thisPlayerTeam)) {
+                if ((i+j)%2!=0 && frame.board[i][j].piece!=null && frame.board[i][j].piece.checkLegalMoves()!=null && frame.board[i][j].isTaken() && frame.board[i][j].getTeam().equals(thisPlayerTeam)) {
                     for (int[] move : frame.board[i][j].piece.checkLegalMoves()) {
                         int[] minorList = {i, j, move[0], move[1]};
                         masterList.add(minorList);
@@ -285,6 +288,12 @@ public class CheckersClient extends Frame implements  ActionListener {
             if (deltas.get(k).intValue() == Collections.max(deltas).intValue()) {
                 returnList.add(masterList.get(k));
             }
+        }
+        if (Collections.max(deltas) >1) {
+            System.out.println("Capture possible.");
+            isCapturePossible = true;
+        } else {
+            isCapturePossible = false;
         }
         return returnList;
     }
@@ -323,14 +332,12 @@ public class CheckersClient extends Frame implements  ActionListener {
             frame.second_click[1] = Integer.parseInt(coordinatesString[1]);
             int[] coordinates = {frame.first_click[0], frame.first_click[1], frame.second_click[0], frame.second_click[1]};
 
+            for (int[] move : legalMovesBoard) {
+                System.out.println(move[0]+" "+ move[1]+" "+ move[2]+" "+ move[3]);
+            }
             if(frame.board[frame.second_click[0]][frame.second_click[1]] == null || !(checkForMoves(legalMovesBoard,coordinates))) {
                 System.out.println("Not a legal move!");
             } else {
-                System.out.println(frame.first_click[0]);
-                System.out.println(frame.first_click[1]);
-                System.out.println(frame.second_click[0]);
-                System.out.println(frame.second_click[1]);
-
                 send();
                 receive();
             }

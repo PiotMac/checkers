@@ -15,11 +15,11 @@ public class RegularPiece implements Piece{
     private void checkCapture(Square sq, int direction, List<Integer> pc, List<int[]> pm) {
         if (sq.isTaken() && sq.getTeam()==this.opposingTeam){
             Square squareBehind = sq.getNeighbours()[direction];
-            if (!squareBehind.isTaken()) {
+            if (squareBehind!=null && !squareBehind.isTaken()) {
                 int[] possibleMoveIds = {squareBehind.getX(),squareBehind.getY()};
                 pm.add(possibleMoveIds);
                 pc.add(1);
-                System.out.println("Capture possible"); //placeholder
+                //placeholder
                 //create new board in same state as current state
                 //make hypothetical move
                 //check for more captures

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added badly programmed partial refreshment of the board">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added mandatory jumping">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +56,7 @@
       <command value="mvn test" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CheckersClient">
+  <component name="RunManager" selected="Application.CheckersServerThread">
     <configuration name="CheckersClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.CheckersClient" />
       <module name="checkers" />
@@ -142,7 +143,7 @@
       <workItem from="1671554007470" duration="5681000" />
       <workItem from="1671567268836" duration="4765000" />
       <workItem from="1671653932377" duration="5405000" />
-      <workItem from="1672510690620" duration="10591000" />
+      <workItem from="1672510690620" duration="13581000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -179,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672527597203</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added mandatory jumping">
+      <created>1672676785910</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1672676785910</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +210,8 @@
     <MESSAGE value="simplified Checkers run function, fixed getAsArray, added move verification, got rid of square ids," />
     <MESSAGE value="added fairly reliable jumping" />
     <MESSAGE value="added badly programmed partial refreshment of the board" />
-    <option name="LAST_COMMIT_MESSAGE" value="added badly programmed partial refreshment of the board" />
+    <MESSAGE value="added mandatory jumping" />
+    <option name="LAST_COMMIT_MESSAGE" value="added mandatory jumping" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
