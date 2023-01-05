@@ -21,7 +21,6 @@ public class CheckersBoard {
             for (int j = 0; j < lim; j++) {
                 if ((i+j)%2 != 0) {
                     board[i][j] = new Square(lim);
-                    board[i][j].setAsPlayable();
                     board[i][j].setCoordinates(i, j);
                 }
                 else {

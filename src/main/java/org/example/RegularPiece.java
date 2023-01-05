@@ -1,19 +1,17 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class RegularPiece implements Piece{
-    private Team team;
-    private Team opposingTeam;
-    public int x;
-    public int y;
+public class RegularPiece extends PieceClass{
     private Square[] neighbours;
-
+    @Override
+    public void setCurrentSquare(Square square) {
+        this.neighbours = square.getNeighbours();
+    }
 
     private int[] checkCapture(Square sq, int direction) {
-        if (sq.isTaken() && sq.getTeam()==this.opposingTeam){
+        if (sq.isTaken() && sq.getTeam()!=this.getTeam()){
             Square squareBehind = sq.getNeighbours()[direction];
             if (squareBehind!=null && !squareBehind.isTaken()) {
                 return new int[]{squareBehind.getX(),squareBehind.getY(), 1, sq.getX(), sq.getY()};//final squareX, final squareY, captureAvailable, jumped squareX, jumped squareY
@@ -61,52 +59,7 @@ public class RegularPiece implements Piece{
             }
         }
         else {
-            //System.out.println("No move possible for piece on square ["+ this.x +", "+this.y+"]");
             return null;
-        }
-
-    }
-    @Override
-    public void setWhite(){
-        this.team = Team.WHITE;
-        this.opposingTeam = Team.BLACK;
-    }
-    @Override
-    public void setBlack() {
-        this.team = Team.BLACK;
-        this.opposingTeam = Team.WHITE;
-    }
-
-    @Override
-    public void setCurrentNeighbours(Square[] neighbours) {
-        this.neighbours = neighbours;
-    }
-
-    @Override
-    public Team getTeam() {
-        return this.team;
-    }
-    @Override
-    public void setCurrentCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-    @Override
-    public int[] getForwardIds() {
-        if (this.team == Team.WHITE) {
-            return new int[]{2, 3};
-        }
-        else {
-            return new int[]{0,1};
-        }
-    }
-    @Override
-    public int[] getBackwardIds() {
-        if (this.team == Team.WHITE) {
-            return new int[]{0,1};
-        }
-        else {
-            return new int[]{2,3};
         }
     }
 }

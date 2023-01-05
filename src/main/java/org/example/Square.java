@@ -1,26 +1,21 @@
 package org.example;
 
-import java.util.ArrayList;
 
 public class Square {
     private boolean isTaken = false;
-    private boolean isPlayable = false;
     public int x;
     public int y;
     final private int limit;
     private final Square[] neighbours = new Square[4];
-    public RegularPiece piece;
-    ArrayList<Square> diagonal;
+    public Piece piece;
+
     public Square(int limit) {
         this.limit = limit;
     }
-    public void setAsPlayable() {
-        isPlayable = true;
-    }
+
     public void setPiece(Piece.Team team) {
         piece = new RegularPiece();
-        piece.setCurrentCoordinates(x, y);
-        piece.setCurrentNeighbours(neighbours);
+        piece.setCurrentSquare(this);
         if (team == Piece.Team.WHITE) {
             piece.setWhite();
         }
@@ -29,9 +24,7 @@ public class Square {
         }
         setTaken(true);
     }
-    public boolean isPlayable() {
-        return isPlayable;
-    }
+
     public void setTaken(boolean truth) {
         isTaken = truth;
     }
@@ -75,26 +68,9 @@ public class Square {
         }
     }
 
-    private void getTopLeftDiagonal() {
-
-    }
-    private void getTopRightDiagonal() {
-
-    }
-    private void getBottomLeftDiagonal() {
-
-    }
-    private void getBottomRightDiagonal() {
-
-    }
-
     public void setCoordinates(int x, int y) {
         this.x = x;
         this.y = y;
-    }
-    public void getCoordinates() {
-        System.out.println("X:= " + x);
-        System.out.println("Y:= " + y);
     }
 
     public Piece.Team getTeam() {
