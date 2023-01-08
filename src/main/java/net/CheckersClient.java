@@ -25,6 +25,7 @@ public class CheckersClient extends Frame implements  ActionListener {
     private boolean successiveCaptureMode = false;
     private int successiveX = -1;
     private int successiveY = -1;
+    private final List<int[]> successiveJumpedXYs = new ArrayList<>();
     Font font = new Font("Arial", Font.PLAIN, 20);
 
     public CheckersClient() {}
@@ -182,6 +183,7 @@ public class CheckersClient extends Frame implements  ActionListener {
             //If this player made a move
             if(coordinates.length==1 && Integer.parseInt(coordinates[0])==0 && !successiveCaptureMode) {
                 List<int[]> squaresToUpdate = clearPieces(frame.first_click[0],frame.first_click[1],frame.second_click[0],frame.second_click[1]);
+
                 frame.board[frame.second_click[0]][frame.second_click[1]].setPiece(thisPlayerTeam);
                 super.setTitle("Opponent's turn!");
                 reprintBoard(squaresToUpdate);
@@ -193,15 +195,21 @@ public class CheckersClient extends Frame implements  ActionListener {
                 List<int[]> squaresToUpdate = new ArrayList<>();
                 squaresToUpdate.add(new int[]{frame.first_click[0], frame.first_click[1]});
                 squaresToUpdate.add(new int[]{frame.second_click[0], frame.second_click[1]});
+                for (int[] successiveXY : successiveJumpedXYs) {
+                    board[successiveXY[0]][successiveXY[1]].setTaken(false);
+                    squaresToUpdate.add(successiveXY);
+                }
                 reprintBoard(squaresToUpdate);
                 System.out.println("Successive capture possible!");
             } else if (coordinates.length>1 && coords[4]==2) {
 
                 board[coords[0]][coords[1]].setTaken(false);
                 board[coords[2]][coords[3]].setPiece(anotherPlayerTeam);
+                board[coords[5]][coords[6]].setTaken(false);
                 List<int[]> squaresToUpdate = new ArrayList<>();
                 squaresToUpdate.add(new int[]{coords[0], coords[1]});
                 squaresToUpdate.add(new int[]{coords[2], coords[3]});
+                squaresToUpdate.add(new int[]{coords[5], coords[6]});
                 reprintBoard(squaresToUpdate);
                 System.out.println("You fell victim to a successive capture");
             } else {
@@ -315,23 +323,32 @@ public class CheckersClient extends Frame implements  ActionListener {
 
     private void isSuccessiveCaptureAvailable(int[] attemptedMove) {
         Square[][] boardClone = frame.board.clone();
-        boolean successFlag = false;
+        boolean goodMove = true;
         boardClone[attemptedMove[0]][attemptedMove[1]].setTaken(false);
         boardClone[attemptedMove[2]][attemptedMove[3]].setPiece(thisPlayerTeam);
+        successiveJumpedXYs.add(new int[]{attemptedMove[5],attemptedMove[6]});
         List<int[]> possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves();
-        for (int[] move : possibleNextMoves) {
-            if (move[2] == 1 && (move[0] != attemptedMove[0] || move[1] != attemptedMove[1])) { //if capture available that doesn't take us back to square one
-                successiveCaptureMode = true;
-                successiveX=attemptedMove[2];
-                successiveY=attemptedMove[3];
-                successFlag=true;
-                break;
+        if (possibleNextMoves!=null) {
+            for (int[] move : possibleNextMoves) {
+                goodMove=true;
+                for (int[] jumpedXY : successiveJumpedXYs) {
+                    if (move[3]==jumpedXY[0] && move[4]==jumpedXY[1]) {
+                        goodMove=false;
+                        break;
+                    }
+                }
+                if (goodMove) {
+                    successiveCaptureMode = true;
+                    successiveX=attemptedMove[2];
+                    successiveY=attemptedMove[3];
+                    break;
+                }
             }
-        }
-        if (!successFlag) {
+        } if (!goodMove) {
             successiveCaptureMode = false;
             successiveX=-1;
             successiveY=-1;
+            successiveJumpedXYs.clear();
         }
     }
 
@@ -388,7 +405,6 @@ public class CheckersClient extends Frame implements  ActionListener {
                 if (successiveCaptureMode) {
                     attemptedMove[4]=2;
                 }
-                System.out.println("Sending "+ Arrays.toString(attemptedMove)+" to server");
                 send(attemptedMove);
                 receive();
             }
