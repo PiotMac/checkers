@@ -22,7 +22,9 @@ public class CheckersClient extends Frame implements  ActionListener {
     GridLayout grid;
     private Piece.Team thisPlayerTeam;
     private Piece.Team anotherPlayerTeam;
-    private boolean isCapturePossible = false;
+    private boolean successiveCaptureMode = false;
+    private int successiveX = -1;
+    private int successiveY = -1;
     Font font = new Font("Arial", Font.PLAIN, 20);
 
     public CheckersClient() {}
@@ -100,20 +102,16 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
     }
 
-    public void reprintBoard(List<Integer> xys) {
-        int limit = (int)Math.sqrt(buttons.length);
-        for (int i = 0; i<xys.size(); i++) {
-            if (i%2==0) {
-                if (!(board[xys.get(i)][xys.get(i+1)].isTaken())) {
-                    buttons[xys.get(i)*limit+xys.get(i+1)].setLabel("");
-                } else if (board[xys.get(i)][xys.get(i+1)].isTaken() && board[xys.get(i)][xys.get(i+1)].getTeam() == Piece.Team.BLACK) {
-                    buttons[xys.get(i)*limit+xys.get(i+1)].setLabel("O");
-                    buttons[xys.get(i)*limit+xys.get(i+1)].setForeground(Color.BLACK);
-                } else if (board[xys.get(i)][xys.get(i+1)].isTaken() && board[xys.get(i)][xys.get(i+1)].getTeam() == Piece.Team.WHITE) {
-                    buttons[xys.get(i)*limit+xys.get(i+1)].setLabel("O");
-                    buttons[xys.get(i)*limit+xys.get(i+1)].setForeground(Color.WHITE);
-                }
-                buttons[xys.get(i)*limit+xys.get(i+1)].setBackground(Color.RED);
+    public void reprintBoard(List<int[]> xys) {
+        for (int[] xy : xys) {
+            if (!(board[xy[0]][xy[1]]).isTaken()) {
+                buttons[xy[0] * size + xy[1]].setLabel("");
+            } else if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].getTeam() == Piece.Team.BLACK) {
+                buttons[xy[0] * size + xy[1]].setLabel("O");
+                buttons[xy[0] * size + xy[1]].setForeground(Color.BLACK);
+            } else if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].getTeam() == Piece.Team.WHITE) {
+                buttons[xy[0] * size + xy[1]].setLabel("O");
+                buttons[xy[0] * size + xy[1]].setForeground(Color.WHITE);
             }
         }
         super.pack();
@@ -137,44 +135,39 @@ public class CheckersClient extends Frame implements  ActionListener {
     public final static int PLAYER2 = 2;
     String str;
 
-    private void send() {
+    private void send(int[] move) {
         //Wysylanie do serwera
-        if (isCapturePossible) {
-            frame.out.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1] + " 1");
-        } else {
-            frame.out.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1] + " 0");
-        }
+        frame.out.println(move[0] + " " + move[1] + " " + move[2] + " " + move[3] + " " + move[4]+ " " + move[5] + " " + move[6]);
     }
 
-    private List<Integer> clearPieces(int firstClickX, int firstClickY, int secondClickX, int secondClickY) {
+    private List<int[]> clearPieces(int firstClickX, int firstClickY, int secondClickX, int secondClickY) {
+        List<int[]> piecesToUpdate = new ArrayList<>();
+        piecesToUpdate.add(new int[]{firstClickX, firstClickY});
+        piecesToUpdate.add(new int[]{secondClickX, secondClickY});
+        frame.board[firstClickX][firstClickY].setTaken(false);
+
         final int xDelta = secondClickX-firstClickX;
         final int yDelta = secondClickY-firstClickY;
-        List<Integer> xys = new ArrayList<>();
-        for (int i = 0; i<=xDelta; i++) {
-            if (xDelta > 0 && yDelta > 0) {
-                frame.board[firstClickX+i][firstClickY+i].setTaken(false);
-                xys.add(firstClickX+i);
-                xys.add(firstClickY+i);
-            }
-            if (xDelta > 0 && yDelta < 0) {
-                frame.board[firstClickX+i][firstClickY-i].setTaken(false);
-                xys.add(firstClickX+i);
-                xys.add(firstClickY-i);
-            }
-        }
-        for (int i = 0; i>=xDelta; i--) {
-            if (xDelta < 0 && yDelta > 0) {
-                frame.board[firstClickX+i][firstClickY-i].setTaken(false);
-                xys.add(firstClickX+i);
-                xys.add(firstClickY-i);
-            }
-            if (xDelta < 0 && yDelta < 0) {
-                frame.board[firstClickX+i][firstClickY+i].setTaken(false);
-                xys.add(firstClickX+i);
-                xys.add(firstClickY+i);
+        if (Math.abs(xDelta-yDelta)!=1) {
+            if (xDelta>0) {
+                if (yDelta>0) {
+                    frame.board[secondClickX-1][secondClickY-1].setTaken(false);
+                    piecesToUpdate.add(new int[]{secondClickX-1, secondClickY-1});
+                } else {
+                    frame.board[secondClickX-1][secondClickY+1].setTaken(false);
+                    piecesToUpdate.add(new int[]{secondClickX-1, secondClickY+1});
+                }
+            } else {
+                if (yDelta>0) {
+                    frame.board[secondClickX+1][secondClickY-1].setTaken(false);
+                    piecesToUpdate.add(new int[]{secondClickX+1, secondClickY-1});
+                } else {
+                    frame.board[secondClickX+1][secondClickY+1].setTaken(false);
+                    piecesToUpdate.add(new int[]{secondClickX+1, secondClickY+1});
+                }
             }
         }
-        return xys;
+        return piecesToUpdate;
     }
 
     private void receive() {
@@ -182,24 +175,51 @@ public class CheckersClient extends Frame implements  ActionListener {
             //Odbieranie z serwera
             str = frame.in.readLine();
             String[] coordinates = str.split(" ");
+            int[] coords = new int[7];
+            for (int i = 0; i<coordinates.length; i++) {
+                coords[i] = Integer.parseInt(coordinates[i]);
+            }
             //If this player made a move
-
-            if (coordinates.length == 1 && Integer.parseInt(coordinates[0]) == 0) {
-                List<Integer> xys = clearPieces(frame.first_click[0],frame.first_click[1],frame.second_click[0],frame.second_click[1]);
+            if(coordinates.length==1 && Integer.parseInt(coordinates[0])==0 && !successiveCaptureMode) {
+                List<int[]> squaresToUpdate = clearPieces(frame.first_click[0],frame.first_click[1],frame.second_click[0],frame.second_click[1]);
                 frame.board[frame.second_click[0]][frame.second_click[1]].setPiece(thisPlayerTeam);
                 super.setTitle("Opponent's turn!");
-                reprintBoard(xys);
+                reprintBoard(squaresToUpdate);
                 System.out.println("Successful move!");
-            }
-            //If another player made a move
-            else {
-                List<Integer> xys = clearPieces(Integer.parseInt(coordinates[0]),Integer.parseInt(coordinates[1]),Integer.parseInt(coordinates[2]),Integer.parseInt(coordinates[3]));
-                //frame.board[Integer.parseInt(coordinates[0])][Integer.parseInt(coordinates[1])].setTaken(false);
-                frame.board[Integer.parseInt(coordinates[2])][Integer.parseInt(coordinates[3])].setPiece(anotherPlayerTeam);
+            } else if (coordinates.length==1 && Integer.parseInt(coordinates[0])==0 && successiveCaptureMode) {
+
+                board[frame.first_click[0]][frame.first_click[1]].setTaken(false);
+                board[frame.second_click[0]][frame.second_click[1]].setPiece(thisPlayerTeam);
+                List<int[]> squaresToUpdate = new ArrayList<>();
+                squaresToUpdate.add(new int[]{frame.first_click[0], frame.first_click[1]});
+                squaresToUpdate.add(new int[]{frame.second_click[0], frame.second_click[1]});
+                reprintBoard(squaresToUpdate);
+                System.out.println("Successive capture possible!");
+            } else if (coordinates.length>1 && coords[4]==2) {
+
+                board[coords[0]][coords[1]].setTaken(false);
+                board[coords[2]][coords[3]].setPiece(anotherPlayerTeam);
+                List<int[]> squaresToUpdate = new ArrayList<>();
+                squaresToUpdate.add(new int[]{coords[0], coords[1]});
+                squaresToUpdate.add(new int[]{coords[2], coords[3]});
+                reprintBoard(squaresToUpdate);
+                System.out.println("You fell victim to a successive capture");
+            } else {
+
+                List<int[]> squaresToUpdate = new ArrayList<>();
+                board[coords[0]][coords[1]].setTaken(false);
+                board[coords[2]][coords[3]].setPiece(anotherPlayerTeam);
+                if (coords[4]==1) {
+                    board[coords[5]][coords[6]].setTaken(false);
+                    squaresToUpdate.add(new int[]{coords[5],coords[6]});
+                }
                 super.setTitle("Your turn!");
-                reprintBoard(xys);
-                System.out.println("Opponent made a move!");
+                squaresToUpdate.add(new int[]{coords[0], coords[1]});
+                squaresToUpdate.add(new int[]{coords[2], coords[3]});
+                reprintBoard(squaresToUpdate);
+                System.out.println("Opponent made a move");
             }
+
         } catch (IOException e) {
             System.out.println("Read failed");
             System.exit(1);
@@ -275,45 +295,53 @@ public class CheckersClient extends Frame implements  ActionListener {
                 if ((i+j)%2!=0 && frame.board[i][j].piece!=null && frame.board[i][j].piece.checkLegalMoves()!=null && frame.board[i][j].isTaken() && frame.board[i][j].getTeam().equals(thisPlayerTeam)) {
                     for (int[] move : frame.board[i][j].piece.checkLegalMoves()) {
                         if (move[2]>0) {
-                            //create a recursive capture checker here...
-                            //in move[2] we can save the amount of captures available
-                            //something like Square[][] tempBoard = frame.board.clone();
-                            //clear pieces in i, j, move[3], move[4]
-                            //place piece on move[0], move[1]
-                            //check all the possibilities, if capture is available, check possibility for more(etc.)
-                            //store number of captures in move[2]
-                            //if move[2] highest in iteration, set highestCapture(int) to move[2]
-                            captureList.add(new int[]{i,j,move[0],move[1],move[2]});
+                            captureList.add(new int[]{i,j,move[0],move[1],move[2],move[3],move[4]});
                             captureAvailable = true;
                             notCaptureList.clear();
                         }
                         else if (!captureAvailable) {
-                            notCaptureList.add(new int[]{i,j,move[0],move[1],move[2]});
+                            notCaptureList.add(new int[]{i,j,move[0],move[1],move[2],move[3],move[4]});
                         }
                     }
                 }
             }
         }
         if (captureAvailable) {
-            /*
-            once recursive:
-            create temporary list
-            if move[2] is equal to the highestCapture, add to temp list
-            return temp list
-             */
             return captureList;
         } else {
             return notCaptureList;
         }
     }
 
-    public boolean checkForMoves(List<int[]> moveList, int[] coordinates) {
-        for (int[] ints : moveList) {
-            if (ints[0] == coordinates[0] && ints[1] == coordinates[1] && ints[2] == coordinates[2] && ints[3] == coordinates[3] ) {
-                return true;
+    private void isSuccessiveCaptureAvailable(int[] attemptedMove) {
+        Square[][] boardClone = frame.board.clone();
+        boolean successFlag = false;
+        boardClone[attemptedMove[0]][attemptedMove[1]].setTaken(false);
+        boardClone[attemptedMove[2]][attemptedMove[3]].setPiece(thisPlayerTeam);
+        List<int[]> possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves();
+        for (int[] move : possibleNextMoves) {
+            if (move[2] == 1 && (move[0] != attemptedMove[0] || move[1] != attemptedMove[1])) { //if capture available that doesn't take us back to square one
+                successiveCaptureMode = true;
+                successiveX=attemptedMove[2];
+                successiveY=attemptedMove[3];
+                successFlag=true;
+                break;
             }
         }
-        return false;
+        if (!successFlag) {
+            successiveCaptureMode = false;
+            successiveX=-1;
+            successiveY=-1;
+        }
+    }
+
+    public int[] checkForMoves(List<int[]> moveList, int[] coordinates) {
+        for (int[] ints : moveList) {
+            if (ints[0] == coordinates[0] && ints[1] == coordinates[1] && ints[2] == coordinates[2] && ints[3] == coordinates[3] ) {
+                return ints;
+            }
+        }
+        return null;
     }
     /**
      * Invoked when an action occurs.
@@ -336,18 +364,32 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
         //Getting coordinates of the second click
         else if (frame.second_click[0] == -1) {
-            List<int[]> legalMovesBoard = checkForLegalMovesOnBoard();
+
+            List<int[]> legalMovesBoard = new ArrayList<>();
+            if (!successiveCaptureMode) {
+                legalMovesBoard = checkForLegalMovesOnBoard();
+            } else {
+                List<int[]> singleSquareMoves = frame.board[successiveX][successiveY].piece.checkLegalMoves();
+                for (int[] move : singleSquareMoves) {
+                    legalMovesBoard.add(new int[]{successiveX, successiveY, move[0], move[1], move[2], move[3], move[4]});
+                }
+            }
+
             frame.second_click[0] = Integer.parseInt(coordinatesString[0]);
             frame.second_click[1] = Integer.parseInt(coordinatesString[1]);
             int[] coordinates = {frame.first_click[0], frame.first_click[1], frame.second_click[0], frame.second_click[1]};
-
-            for (int[] move : legalMovesBoard) {
-                System.out.println(move[0]+" "+ move[1]+" "+ move[2]+" "+ move[3]);
-            }
-            if(frame.board[frame.second_click[0]][frame.second_click[1]] == null || !(checkForMoves(legalMovesBoard,coordinates))) {
+            int[] attemptedMove = checkForMoves(legalMovesBoard, coordinates);
+            if(frame.board[frame.second_click[0]][frame.second_click[1]] == null || attemptedMove==null) {
                 System.out.println("Not a legal move!");
             } else {
-                send();
+                if (attemptedMove[4]==1) {
+                    isSuccessiveCaptureAvailable(attemptedMove);
+                }
+                if (successiveCaptureMode) {
+                    attemptedMove[4]=2;
+                }
+                System.out.println("Sending "+ Arrays.toString(attemptedMove)+" to server");
+                send(attemptedMove);
                 receive();
             }
             for (int i = 0; i < 2; i++) {

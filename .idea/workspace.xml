@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="changed legality check structure, added massive to do in checkForLegalMovesOnBoard">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/PieceClass.java" afterDir="false" />
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="changed Piece class structure, cleaned up unused methods">
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Square.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/Checkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/Checkers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +144,8 @@
       <workItem from="1671554007470" duration="5681000" />
       <workItem from="1671567268836" duration="4765000" />
       <workItem from="1671653932377" duration="5405000" />
-      <workItem from="1672510690620" duration="22394000" />
+      <workItem from="1672510690620" duration="23683000" />
+      <workItem from="1672958113311" duration="11498000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -205,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672869152579</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="changed Piece class structure, cleaned up unused methods">
+      <created>1672922567051</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1672922567051</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +236,9 @@
     <MESSAGE value="added mandatory jumping" />
     <MESSAGE value="fixed horrible jumping/movement bugs" />
     <MESSAGE value="changed legality check structure, added massive to do in checkForLegalMovesOnBoard" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed legality check structure, added massive to do in checkForLegalMovesOnBoard" />
+    <MESSAGE value="changed Piece class structure, added initial queen piece" />
+    <MESSAGE value="changed Piece class structure, cleaned up unused methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed Piece class structure, cleaned up unused methods" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
