@@ -26,6 +26,7 @@ public class CheckersClient extends Frame implements  ActionListener {
     private int successiveX = -1;
     private int successiveY = -1;
     private final List<int[]> successiveJumpedXYs = new ArrayList<>();
+    private Dimension checkersBoardSize;
     Font font = new Font("Arial", Font.PLAIN, 20);
 
     public CheckersClient() {}
@@ -42,6 +43,7 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
         //msg = new Label("Checkers");
         frame.size = frame.checkersBoard.getSize();
+        frame.checkersBoardSize = new Dimension(50 * size, 50 * size);
         frame.buttons = new Button[size * size];
         frame.board = checkersBoard.getBoard();
         frame.first_click = new int[]{-1, -1};
@@ -72,14 +74,17 @@ public class CheckersClient extends Frame implements  ActionListener {
                     buttons[count] = new Button("");
                     buttons[count].setBackground(Color.RED);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.BLACK) {
-                    buttons[count] = new Button("O");
+                    //buttons[count] = new Button("O");
+                    buttons[count] = new Button("\u26C2");
                     buttons[count].setForeground(Color.BLACK);
                     buttons[count].setBackground(Color.RED);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.WHITE) {
-                    buttons[count] = new Button("O");
+                    //buttons[count] = new Button("O");
+                    buttons[count] = new Button("\u26C0");
                     buttons[count].setForeground(Color.WHITE);
                     buttons[count].setBackground(Color.RED);
                 }
+                buttons[count].setSize(300, 300);
                 buttons[count].setFont(font);
                 buttons[count].addActionListener(this);
                 buttons[count].setActionCommand("" + i + " " + j);
@@ -88,6 +93,7 @@ public class CheckersClient extends Frame implements  ActionListener {
             }
             System.out.println();
         }
+        super.setMinimumSize(checkersBoardSize);
         super.pack();
         super.setVisible(true);
         if (super.getTitle().equals("Opponent's turn!")) {
@@ -108,10 +114,14 @@ public class CheckersClient extends Frame implements  ActionListener {
             if (!(board[xy[0]][xy[1]]).isTaken()) {
                 buttons[xy[0] * size + xy[1]].setLabel("");
             } else if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].getTeam() == Piece.Team.BLACK) {
-                buttons[xy[0] * size + xy[1]].setLabel("O");
+                //buttons[xy[0] * size + xy[1]].setLabel("O");
+                //buttons[xy[0] * size + xy[1]].setForeground(Color.BLACK);
+                buttons[xy[0] * size + xy[1]].setLabel("\u26C2");
                 buttons[xy[0] * size + xy[1]].setForeground(Color.BLACK);
             } else if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].getTeam() == Piece.Team.WHITE) {
-                buttons[xy[0] * size + xy[1]].setLabel("O");
+                //buttons[xy[0] * size + xy[1]].setLabel("O");
+                //buttons[xy[0] * size + xy[1]].setForeground(Color.WHITE);
+                buttons[xy[0] * size + xy[1]].setLabel("\u26C0");
                 buttons[xy[0] * size + xy[1]].setForeground(Color.WHITE);
             }
         }
@@ -258,8 +268,13 @@ public class CheckersClient extends Frame implements  ActionListener {
         frame.listenSocket();
         try {
             frame.player = Integer.parseInt(frame.in.readLine());
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println("Read failed");
+            System.exit(1);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Limit of players has been reached!");
             System.exit(1);
         }
         if (frame.player == PLAYER1) {

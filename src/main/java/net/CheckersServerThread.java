@@ -11,6 +11,7 @@ public class CheckersServerThread
     static CheckersClient client;
     static CheckersBoard checkersBoard;
     static Square[][] board;
+    static final boolean playingGame = true;
     public static void main(String[] args)
     {
         try (ServerSocket serverSocket = new ServerSocket(4445)) {
@@ -58,8 +59,18 @@ public class CheckersServerThread
                 Thread checkersThread = new Thread(checkers);
                 checkersThread.start();
 
-                // TO DO: Musi byc dokldnie dwoch klientow
-
+                // TODO: Musi byc dokldnie dwoch klientow
+                // Zatem po skończonej rozgrywce do serwera będzie trzeba
+                // wysłać sygnał, że gra została zakończona
+                /*
+                while(playingGame) {
+                    Socket waitingClient = serverSocket.accept();
+                    OutputStream outputW = waitingClient.getOutputStream();
+                    PrintWriter outW = new PrintWriter(outputW, true);
+                    outW.println("Limit of players has been reached!");
+                    waitingClient.close();
+                }
+                */
             }
 
         } catch (IOException ex) {

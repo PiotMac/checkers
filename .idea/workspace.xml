@@ -7,6 +7,7 @@
     <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added double jumping! and rough queen outline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,15 +83,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveAvailabilityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="checkers" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MoveAvailabilityTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MoveAvailabilityTest.basicMoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
@@ -110,10 +102,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="NumberOfPlayersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="checkers" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="NumberOfPlayersTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.CheckersClient" />
       <item itemvalue="Application.CheckersServerThread" />
-      <item itemvalue="JUnit.MoveAvailabilityTest" />
+      <item itemvalue="JUnit.NumberOfPlayersTest" />
       <item itemvalue="JUnit.MoveAvailabilityTest.basicMoveTest" />
       <item itemvalue="JUnit.NeighboursTest" />
     </list>
@@ -121,9 +122,9 @@
       <list>
         <item itemvalue="Application.CheckersClient" />
         <item itemvalue="Application.CheckersServerThread" />
+        <item itemvalue="JUnit.NumberOfPlayersTest" />
         <item itemvalue="JUnit.MoveAvailabilityTest.basicMoveTest" />
         <item itemvalue="JUnit.NeighboursTest" />
-        <item itemvalue="JUnit.MoveAvailabilityTest" />
       </list>
     </recent_temporary>
   </component>
@@ -144,6 +145,7 @@
       <workItem from="1671653932377" duration="5405000" />
       <workItem from="1672510690620" duration="23683000" />
       <workItem from="1672958113311" duration="13966000" />
+      <workItem from="1673267244527" duration="5895000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
