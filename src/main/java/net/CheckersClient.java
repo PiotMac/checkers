@@ -41,7 +41,6 @@ public class CheckersClient extends Frame implements  ActionListener {
             frame.anotherPlayerTeam = Piece.Team.WHITE;
             super.setTitle("Opponent's turn!");
         }
-        //msg = new Label("Checkers");
         frame.size = frame.checkersBoard.getSize();
         frame.checkersBoardSize = new Dimension(50 * size, 50 * size);
         frame.buttons = new Button[size * size];
@@ -55,7 +54,6 @@ public class CheckersClient extends Frame implements  ActionListener {
                 System.exit(0);
             }
         });
-        //startThread();
         createBoard();
     }
     public void createBoard() {
@@ -94,6 +92,9 @@ public class CheckersClient extends Frame implements  ActionListener {
             System.out.println();
         }
         super.setMinimumSize(checkersBoardSize);
+        getBoardReady();
+    }
+    private void getBoardReady() {
         super.pack();
         super.setVisible(true);
         if (super.getTitle().equals("Opponent's turn!")) {
@@ -125,19 +126,7 @@ public class CheckersClient extends Frame implements  ActionListener {
                 buttons[xy[0] * size + xy[1]].setForeground(Color.WHITE);
             }
         }
-        super.pack();
-        super.setVisible(true);
-        if (super.getTitle().equals("Opponent's turn!")) {
-            for (Button button : buttons) {
-                button.setEnabled(false);
-            }
-            receive();
-        }
-        if (super.getTitle().equals("Your turn!")) {
-            for (Button button : buttons) {
-                button.setEnabled(true);
-            }
-        }
+        getBoardReady();
     }
 
 
@@ -263,6 +252,14 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
     }
 
+    private void choose(String choice) {
+        switch (choice) {
+            case "1" -> frame.checkersBoard = new CheckersBoard(10);
+            case "2" -> frame.checkersBoard = new CheckersBoard(8);
+            case "3" -> frame.checkersBoard = new CheckersBoard(12);
+            default -> throw new IllegalArgumentException();
+        }
+    }
     public static void main(String[] args) {
         frame = new CheckersClient();
         frame.listenSocket();
@@ -282,12 +279,7 @@ public class CheckersClient extends Frame implements  ActionListener {
             Scanner scanner = new Scanner(System.in);
             System.out.println("1 - Polish, 2 - Brazilian, 3 - Canadian\n");
             String choice = scanner.nextLine();
-            switch (choice) {
-                case "1" -> frame.checkersBoard = new CheckersBoard(10);
-                case "2" -> frame.checkersBoard = new CheckersBoard(8);
-                case "3" -> frame.checkersBoard = new CheckersBoard(12);
-                default -> throw new IllegalArgumentException();
-            }
+            frame.choose(choice);
             frame.out.println(choice);
             frame.setClient();
         }
@@ -299,13 +291,7 @@ public class CheckersClient extends Frame implements  ActionListener {
                 System.out.println("Read failed");
                 System.exit(1);
             }
-
-            switch (type) {
-                case "1" -> frame.checkersBoard = new CheckersBoard(10);
-                case "2" -> frame.checkersBoard = new CheckersBoard(8);
-                case "3" -> frame.checkersBoard = new CheckersBoard(12);
-                default -> throw new IllegalArgumentException();
-            }
+            frame.choose(type);
             frame.setClient();
         }
     }
