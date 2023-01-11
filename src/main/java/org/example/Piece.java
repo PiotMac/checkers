@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface Piece {
     enum Team{BLACK, WHITE}
+    enum PieceType{MAN, KING}
     List<int[]> checkLegalMoves();
     Team getTeam();
     void setWhite();
@@ -11,5 +12,6 @@ public interface Piece {
     void setCurrentSquare(Square square);
     //void setCurrentCoordinates(int x, int y);
     int[] getForwardIds();
-    int[] getBackwardIds();
+
+    PieceType getPieceType();
 }

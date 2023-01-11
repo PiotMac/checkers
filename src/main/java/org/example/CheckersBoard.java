@@ -40,10 +40,10 @@ public class CheckersBoard {
         for (int i = 0; i < lim; i++) {
             for (int j = 0; j < lim; j++) {
                 if ((i+j)%2 != 0 && i < lim/2 - 1) {
-                    board[i][j].setPiece(Piece.Team.WHITE);
+                    board[i][j].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
                 }
                 else if ((i+j)%2 != 0 && i >= lim/2 + 1) {
-                    board[i][j].setPiece(Piece.Team.BLACK);
+                    board[i][j].setPiece(Piece.Team.BLACK, Piece.PieceType.MAN);
                 }
             }
         }

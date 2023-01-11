@@ -13,8 +13,12 @@ public class Square {
         this.limit = limit;
     }
 
-    public void setPiece(Piece.Team team) {
-        piece = new RegularPiece();
+    public void setPiece(Piece.Team team, Piece.PieceType pieceType) {
+        if (pieceType== Piece.PieceType.MAN) {
+            piece = new RegularPiece();
+        } else if (pieceType == Piece.PieceType.KING) {
+            piece = new QueenPiece();
+        }
         piece.setCurrentSquare(this);
         if (team == Piece.Team.WHITE) {
             piece.setWhite();
