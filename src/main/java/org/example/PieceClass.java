@@ -25,14 +25,4 @@ abstract class PieceClass implements Piece{
             return new int[]{0,1};
         }
     }
-    public int[] getBackwardIds() {
-        if (this.team == Team.WHITE) {
-            return new int[]{0,1};
-        }
-        else {
-            return new int[]{2,3};
-        }
-    }
-
-
 }

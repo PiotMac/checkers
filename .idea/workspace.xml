@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added double jumping! and rough queen outline">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added working english checkers (switch 2)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/Checkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/Checkers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Square.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PieceClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/PieceClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +61,7 @@
       <command value="mvn test" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CheckersClient">
+  <component name="RunManager" selected="Application.CheckersServerThread">
     <configuration name="CheckersClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.CheckersClient" />
       <module name="checkers" />
@@ -88,30 +88,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveAvailabilityTest.basicMoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in checkers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="checkers" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MoveAvailabilityTest.KingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="MoveAvailabilityTest" />
-      <option name="METHOD_NAME" value="basicMoveTest" />
+      <option name="METHOD_NAME" value="KingTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NeighboursTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoveAvailabilityTest.jumpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="NeighboursTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NumberOfPlayersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="checkers" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="NumberOfPlayersTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="MAIN_CLASS_NAME" value="MoveAvailabilityTest" />
+      <option name="METHOD_NAME" value="jumpTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -119,17 +119,17 @@
     <list>
       <item itemvalue="Application.CheckersClient" />
       <item itemvalue="Application.CheckersServerThread" />
-      <item itemvalue="JUnit.NumberOfPlayersTest" />
-      <item itemvalue="JUnit.MoveAvailabilityTest.basicMoveTest" />
-      <item itemvalue="JUnit.NeighboursTest" />
+      <item itemvalue="JUnit.All in checkers" />
+      <item itemvalue="JUnit.MoveAvailabilityTest.KingTest" />
+      <item itemvalue="JUnit.MoveAvailabilityTest.jumpTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.CheckersClient" />
         <item itemvalue="Application.CheckersServerThread" />
-        <item itemvalue="JUnit.NumberOfPlayersTest" />
-        <item itemvalue="JUnit.MoveAvailabilityTest.basicMoveTest" />
-        <item itemvalue="JUnit.NeighboursTest" />
+        <item itemvalue="JUnit.All in checkers" />
+        <item itemvalue="JUnit.MoveAvailabilityTest.KingTest" />
+        <item itemvalue="JUnit.MoveAvailabilityTest.jumpTest" />
       </list>
     </recent_temporary>
   </component>
@@ -152,7 +152,8 @@
       <workItem from="1672958113311" duration="13966000" />
       <workItem from="1673267244527" duration="5895000" />
       <workItem from="1673360319786" duration="11861000" />
-      <workItem from="1673427988414" duration="9556000" />
+      <workItem from="1673427988414" duration="16807000" />
+      <workItem from="1673454380997" duration="3269000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -224,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673199274495</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added working english checkers (switch 2)">
+      <created>1673437792929</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1673437792929</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,13 +261,17 @@
     <MESSAGE value="changed Piece class structure, added initial queen piece" />
     <MESSAGE value="changed Piece class structure, cleaned up unused methods" />
     <MESSAGE value="added double jumping! and rough queen outline" />
-    <option name="LAST_COMMIT_MESSAGE" value="added double jumping! and rough queen outline" />
+    <MESSAGE value="added working english checkers (switch 2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added working english checkers (switch 2)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/lista_4$All_in_checkers.ic" NAME="All in checkers Coverage Results" MODIFIED="1673455661334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/checkers$MoveAvailabilityTest_basicMoveTest.ic" NAME="MoveAvailabilityTest.basicMoveTest Coverage Results" MODIFIED="1671638928496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTestBlack.ic" NAME="MoveAvailabilityTest.jumpTestBlack Coverage Results" MODIFIED="1673454397312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTest.ic" NAME="MoveAvailabilityTest.jumpTest Coverage Results" MODIFIED="1673454087226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

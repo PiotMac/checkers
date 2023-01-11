@@ -19,7 +19,7 @@ public class CheckersClient extends Frame implements  ActionListener {
     BufferedReader in = null;
     int size;
     Square[][] board;
-    Button[] buttons;
+    Button[][] buttons;
     GridLayout grid;
     private Piece.Team thisPlayerTeam;
     private Piece.Team anotherPlayerTeam;
@@ -32,6 +32,70 @@ public class CheckersClient extends Frame implements  ActionListener {
     Font font = new Font("Arial", Font.PLAIN, 20);
 
     public CheckersClient() {}
+
+    /*
+Połaczenie z socketem
+ */
+    public void listenSocket() {
+        try {
+            frame.socket = new Socket("localhost", 4445);
+            // Inicjalizacja wysylania do serwera
+            frame.out = new PrintWriter(socket.getOutputStream(), true);
+            // Inicjalizacja odbierania z serwera
+            frame.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        } catch (UnknownHostException e) {
+            System.out.println("Unknown host: localhost");
+            System.exit(1);
+        } catch (IOException e) {
+            System.out.println("No I/O");
+            System.exit(1);
+        }
+    }
+
+    private void choose(String choice) {
+        switch (choice) {
+            //case "1" -> frame.checkersBoard = new CheckersBoard(10);
+            case "2" -> frame.checkersBoard = new EnglishCheckersBoard();
+            //case "3" -> frame.checkersBoard = new CheckersBoard(12);
+            default -> throw new IllegalArgumentException();
+        }
+    }
+    public static void main(String[] args) {
+        frame = new CheckersClient();
+        frame.listenSocket();
+        try {
+            frame.player = Integer.parseInt(frame.in.readLine());
+        }
+        catch (IOException e) {
+            System.out.println("Read failed");
+            System.exit(1);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Limit of players has been reached!");
+            System.exit(1);
+        }
+        if (frame.player == PLAYER1) {
+            System.out.println("Choose type of checkers that u want to play!: ");
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("1 - Polish, 2 - Brazilian, 3 - Canadian\n");
+            String choice = scanner.nextLine();
+            frame.choose(choice);
+            frame.out.println(choice);
+            frame.setClient();
+        }
+        else {
+            String type = "";
+            try {
+                type = frame.in.readLine();
+            } catch (IOException e) {
+                System.out.println("Read failed");
+                System.exit(1);
+            }
+            frame.choose(type);
+            frame.setClient();
+        }
+    }
+
     public void setClient() {
         if (frame.player == PLAYER1) {
             frame.thisPlayerTeam = Piece.Team.BLACK;
@@ -45,7 +109,7 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
         frame.size = frame.checkersBoard.getSize();
         frame.checkersBoardSize = new Dimension(50 * size, 50 * size);
-        frame.buttons = new Button[size * size];
+        frame.buttons = new Button[size][size];
         frame.board = checkersBoard.getBoard();
         frame.first_click = new int[]{-1, -1};
         frame.second_click = new int[]{-1, -1};
@@ -60,37 +124,37 @@ public class CheckersClient extends Frame implements  ActionListener {
     }
 
     public void createBoard() {
-        int count = 0;
-        if (buttons[0] != null) {
-            for (Button button : buttons) {
-                super.remove(button);
+        if (buttons[0][0] != null) {
+            for (Button[] buttonRow : buttons) {
+                for (Button button : buttonRow) {
+                    super.remove(button);
+                }
             }
         }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if ((i+j)%2==0) {
-                    buttons[count] = new Button("");
-                    buttons[count].setBackground(Color.BLACK);
+                    buttons[i][j] = new Button("");
+                    buttons[i][j].setBackground(Color.BLACK);
                 } else if (!(board[i][j].isTaken())) {
-                    buttons[count] = new Button("");
-                    buttons[count].setBackground(Color.RED);
+                    buttons[i][j] = new Button("");
+                    buttons[i][j].setBackground(Color.RED);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.BLACK) {
-                    buttons[count] = new Button("O");
+                    buttons[i][j] = new Button("O");
                     //buttons[count] = new Button("\u26C2");
-                    buttons[count].setForeground(Color.BLACK);
-                    buttons[count].setBackground(Color.RED);
+                    buttons[i][j].setForeground(Color.BLACK);
+                    buttons[i][j].setBackground(Color.RED);
                 } else if (board[i][j].isTaken() && board[i][j].getTeam() == Piece.Team.WHITE) {
-                    buttons[count] = new Button("O");
+                    buttons[i][j] = new Button("O");
                     //buttons[count] = new Button("\u26C0");
-                    buttons[count].setForeground(Color.WHITE);
-                    buttons[count].setBackground(Color.RED);
+                    buttons[i][j].setForeground(Color.WHITE);
+                    buttons[i][j].setBackground(Color.RED);
                 }
-                buttons[count].setSize(300, 300);
-                buttons[count].setFont(font);
-                buttons[count].addActionListener(this);
-                buttons[count].setActionCommand("" + i + " " + j);
-                super.add(buttons[count]);
-                count++;
+                buttons[i][j].setSize(300, 300);
+                buttons[i][j].setFont(font);
+                buttons[i][j].addActionListener(this);
+                buttons[i][j].setActionCommand("" + i + " " + j);
+                super.add(buttons[i][j]);
             }
         }
         super.setMinimumSize(checkersBoardSize);
@@ -100,14 +164,19 @@ public class CheckersClient extends Frame implements  ActionListener {
         super.pack();
         super.setVisible(true);
         if (super.getTitle().equals("Opponent's turn!")) {
-            for (Button button : buttons) {
-                button.setEnabled(false);
+            for (Button[] buttonRow : buttons) {
+                for (Button button : buttonRow) {
+                    button.setEnabled(false);
+                }
             }
             receive();
         }
         if (super.getTitle().equals("Your turn!")) {
-            for (Button button : buttons) {
-                button.setEnabled(true);
+            for (Button[] buttonRow : buttons) {
+                for (Button button : buttonRow) {
+                    button.setEnabled(true);
+                }
+
             }
         }
     }
@@ -115,19 +184,19 @@ public class CheckersClient extends Frame implements  ActionListener {
     public void reprintBoard(List<int[]> xys) {
         for (int[] xy : xys) {
             if (!(board[xy[0]][xy[1]]).isTaken()) {
-                buttons[xy[0] * size + xy[1]].setLabel("");
+                buttons[xy[0]][xy[1]].setLabel("");
             } else {
                 if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].getTeam() == Piece.Team.BLACK) {
                     //buttons[xy[0] * size + xy[1]].setLabel("\u26C2");
-                    buttons[xy[0] * size + xy[1]].setForeground(Color.BLACK);
+                    buttons[xy[0]][xy[1]].setForeground(Color.BLACK);
                 } else if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].getTeam() == Piece.Team.WHITE) {
                     //buttons[xy[0] * size + xy[1]].setLabel("\u26C0");
-                    buttons[xy[0] * size + xy[1]].setForeground(Color.WHITE);
+                    buttons[xy[0]][xy[1]].setForeground(Color.WHITE);
                 }
                 if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].piece.getPieceType()== Piece.PieceType.MAN) {
-                    buttons[xy[0] * size + xy[1]].setLabel("O");
+                    buttons[xy[0]][xy[1]].setLabel("O");
                 } else if (board[xy[0]][xy[1]].isTaken() && board[xy[0]][xy[1]].piece.getPieceType()== Piece.PieceType.KING) {
-                    buttons[xy[0] * size + xy[1]].setLabel("Q");
+                    buttons[xy[0]][xy[1]].setLabel("Q");
                 }
             }
         }
@@ -228,6 +297,7 @@ public class CheckersClient extends Frame implements  ActionListener {
     }
 
 
+
     private void receive() {
         try {
             //Odbieranie z serwera
@@ -255,68 +325,6 @@ public class CheckersClient extends Frame implements  ActionListener {
         }
     }
 
-    /*
-    Połaczenie z socketem
-     */
-    public void listenSocket() {
-        try {
-            frame.socket = new Socket("localhost", 4445);
-            // Inicjalizacja wysylania do serwera
-            frame.out = new PrintWriter(socket.getOutputStream(), true);
-            // Inicjalizacja odbierania z serwera
-            frame.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (UnknownHostException e) {
-            System.out.println("Unknown host: localhost");
-            System.exit(1);
-        } catch (IOException e) {
-            System.out.println("No I/O");
-            System.exit(1);
-        }
-    }
-
-    private void choose(String choice) {
-        switch (choice) {
-            case "1" -> frame.checkersBoard = new CheckersBoard(10);
-            case "2" -> frame.checkersBoard = new CheckersBoard(8);
-            case "3" -> frame.checkersBoard = new CheckersBoard(12);
-            default -> throw new IllegalArgumentException();
-        }
-    }
-    public static void main(String[] args) {
-        frame = new CheckersClient();
-        frame.listenSocket();
-        try {
-            frame.player = Integer.parseInt(frame.in.readLine());
-        }
-        catch (IOException e) {
-            System.out.println("Read failed");
-            System.exit(1);
-        }
-        catch (NumberFormatException e) {
-            System.out.println("Limit of players has been reached!");
-            System.exit(1);
-        }
-        if (frame.player == PLAYER1) {
-            System.out.println("Choose type of checkers that u want to play!: ");
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("1 - Polish, 2 - Brazilian, 3 - Canadian\n");
-            String choice = scanner.nextLine();
-            frame.choose(choice);
-            frame.out.println(choice);
-            frame.setClient();
-        }
-        else {
-            String type = "";
-            try {
-                type = frame.in.readLine();
-            } catch (IOException e) {
-                System.out.println("Read failed");
-                System.exit(1);
-            }
-            frame.choose(type);
-            frame.setClient();
-        }
-    }
     public List<int[]> checkForLegalMovesOnBoard() {
         List<int[]> notCaptureList = new ArrayList<>();
         List<int[]> captureList = new ArrayList<>();

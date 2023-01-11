@@ -1,9 +1,10 @@
 import org.example.CheckersBoard;
 
+import org.example.EnglishCheckersBoard;
 import org.junit.Assert;
 import org.junit.Test;
 public class NeighboursTest {
-    CheckersBoard checkersBoard = new CheckersBoard(10);
+    CheckersBoard checkersBoard = new EnglishCheckersBoard();
     @Test
     public void getNeighboursTestBasic() {
         checkersBoard.getBoard();
