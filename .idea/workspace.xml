@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added double jumping! and rough queen outline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/Checkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/Checkers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Square.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +151,8 @@
       <workItem from="1672510690620" duration="23683000" />
       <workItem from="1672958113311" duration="13966000" />
       <workItem from="1673267244527" duration="5895000" />
+      <workItem from="1673360319786" duration="11861000" />
+      <workItem from="1673427988414" duration="9556000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>

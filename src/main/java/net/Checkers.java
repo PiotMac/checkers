@@ -42,7 +42,7 @@ public class Checkers implements Runnable {
         //outS.println("0");
         outLocal.println("0");
         //Sending moves to another player
-        outOpp.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1] + " " + coordinates[4] + " " + coordinates[5] + " " + coordinates[6]);
+        outOpp.println(first_click[0] + " " + first_click[1] + " " + second_click[0] + " " + second_click[1] + " " + coordinates[4] + " " + coordinates[5]);
         if (Integer.parseInt(coordinates[4])!=2) {
             switchTurn();
         }
