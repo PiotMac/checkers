@@ -1,39 +1,66 @@
 import org.example.CheckersBoard;
+import org.example.EnglishCheckersBoard;
+import org.example.Piece;
+import org.example.Square;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoveAvailabilityTest {
-    CheckersBoard checkersBoard = new CheckersBoard(10);
+    CheckersBoard checkersBoard = new EnglishCheckersBoard();
     @Test
     public void basicMoveTest() {
-        checkersBoard.getBoard();
-        Assert.assertNull(CheckersBoard.board[0][1].piece.checkLegalMoves());
-        for (int[] moves : CheckersBoard.board[3][4].piece.checkLegalMoves()) {
-            System.out.println(Arrays.toString(moves));
+        Square[][] board = checkersBoard.getBoard();
+        Assert.assertNull(board[0][1].piece.checkLegalMoves());//a blocked piece should not have legal moves
+        List<int[]> legalMoves = board[2][3].piece.checkLegalMoves();
+        List<int[]> mockList = new ArrayList<>();
+        mockList.add(new int[]{3,2,0,0});
+        mockList.add(new int[]{3,4,0,0});
+        int i = 0;
+        for (int[] move : legalMoves) {
+            Assert.assertArrayEquals(move, mockList.get(i));
+            i=i+1;
         }
-        //CheckersBoard.board[3][0].piece.checkLegalMoves();
-        //CheckersBoard.board[3][4].piece.checkLegalMoves();
-        //CheckersBoard.board[6][5].piece.checkLegalMoves();
-        //CheckersBoard.board[6][9].piece.checkLegalMoves();
     }
-    @Test
-    public void boardAsArrayTest() {
-        checkersBoard.getBoard();
-        int[] brd = checkersBoard.getBoardAsArray();
-        int[] prepared = new int[50];
-        for (int i=0; i<50; i++) {
-            if (i<20) {
-                prepared[i] = -1;
-            } else if (i<30) {
-                prepared[i] = 0;
-            } else {
-                prepared[i] = 1;
+    private void clearBoard(Square[][] board) {
+        for (int i = 0; i<checkersBoard.getSize(); i++) {
+            for (int j=0; j<checkersBoard.getSize(); j++) {
+                if ((i+j)%2==1) {
+                    board[i][j].setTaken(false);
+                }
             }
         }
-        for (int i = 0; i<50; i++) {
-            Assert.assertEquals(brd[i],prepared[i]);
-        }
     }
+    @Test
+    public void jumpTest() {
+        Square[][] board = checkersBoard.getBoard();
+        clearBoard(board);
+        board[3][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
+        board[4][3].setPiece(Piece.Team.BLACK, Piece.PieceType.MAN);
+        board[5][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
+
+        //you have to jump if that possibility exists, you can't jump backwards
+        List<int[]> jump = board[4][3].piece.checkLegalMoves();
+        Assert.assertEquals(jump.size(),1);
+        Assert.assertArrayEquals(jump.get(0), new int[]{2,1,1,0});
+
+    }
+
+    @Test
+    public void KingTest() {
+        Square[][] board = checkersBoard.getBoard();
+        clearBoard(board);
+        board[3][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
+        board[4][3].setPiece(Piece.Team.BLACK, Piece.PieceType.KING);
+        board[5][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
+
+        //you can jump backwards as a king
+        List<int[]> jump = board[4][3].piece.checkLegalMoves();
+        Assert.assertEquals(jump.size(),2);
+        Assert.assertArrayEquals(jump.get(0), new int[]{2,1,1,1});
+        Assert.assertArrayEquals(jump.get(1), new int[]{6,1,1,1});
+    }
+
 }
