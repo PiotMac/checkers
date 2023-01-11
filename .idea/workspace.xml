@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added double jumping! and rough queen outline">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +54,7 @@
       <command value="mvn test" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CheckersClient">
+  <component name="RunManager" selected="Application.CheckersServerThread">
     <configuration name="CheckersClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.CheckersClient" />
       <module name="checkers" />
@@ -146,6 +144,7 @@
       <workItem from="1672510690620" duration="23683000" />
       <workItem from="1672958113311" duration="13966000" />
       <workItem from="1673267244527" duration="5895000" />
+      <workItem from="1673300238046" duration="1436000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -217,7 +216,21 @@
       <option name="project" value="LOCAL" />
       <updated>1673199274495</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Replaced labels on the buttons and first try to ensure only 2 players can join the server">
+      <created>1673300474748</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1673300474748</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Created two methods in order to not repeat code">
+      <created>1673433207493</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1673433207493</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,7 +259,9 @@
     <MESSAGE value="changed Piece class structure, added initial queen piece" />
     <MESSAGE value="changed Piece class structure, cleaned up unused methods" />
     <MESSAGE value="added double jumping! and rough queen outline" />
-    <option name="LAST_COMMIT_MESSAGE" value="added double jumping! and rough queen outline" />
+    <MESSAGE value="Replaced labels on the buttons and first try to ensure only 2 players can join the server" />
+    <MESSAGE value="Created two methods in order to not repeat code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created two methods in order to not repeat code" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
