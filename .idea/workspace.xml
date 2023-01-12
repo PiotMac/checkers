@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="almost made it that only two players can join the server">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added working english checkers (switch 2)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ShashkiBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ThaiCheckersBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/Checkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/Checkers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PieceClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/PieceClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,30 +41,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "File.Encoding",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn test" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CheckersClient">
+  <component name="RunManager" selected="Application.CheckersServerThread">
     <configuration name="CheckersClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.CheckersClient" />
       <module name="checkers" />
@@ -273,9 +281,9 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTestBlack.ic" NAME="MoveAvailabilityTest.jumpTestBlack Coverage Results" MODIFIED="1673454397312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/checkers$MoveAvailabilityTest_basicMoveTest.ic" NAME="MoveAvailabilityTest.basicMoveTest Coverage Results" MODIFIED="1671638928496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTest.ic" NAME="MoveAvailabilityTest.jumpTest Coverage Results" MODIFIED="1673454087226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/lista_4$All_in_checkers.ic" NAME="All in checkers Coverage Results" MODIFIED="1673455661334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/checkers$MoveAvailabilityTest_basicMoveTest.ic" NAME="MoveAvailabilityTest.basicMoveTest Coverage Results" MODIFIED="1671638928496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTestBlack.ic" NAME="MoveAvailabilityTest.jumpTestBlack Coverage Results" MODIFIED="1673454397312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTest.ic" NAME="MoveAvailabilityTest.jumpTest Coverage Results" MODIFIED="1673454087226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

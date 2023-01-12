@@ -55,9 +55,9 @@ Połaczenie z socketem
 
     private void choose(String choice) {
         switch (choice) {
-            //case "1" -> frame.checkersBoard = new CheckersBoard(10);
+            case "1" -> frame.checkersBoard = new ThaiCheckersBoard();
             case "2" -> frame.checkersBoard = new EnglishCheckersBoard();
-            //case "3" -> frame.checkersBoard = new CheckersBoard(12);
+            case "3" -> frame.checkersBoard = new ShashkiBoard();
             default -> throw new IllegalArgumentException();
         }
     }
@@ -76,9 +76,9 @@ Połaczenie z socketem
             System.exit(1);
         }
         if (frame.player == PLAYER1) {
-            System.out.println("Choose type of checkers that u want to play!: ");
+            System.out.println("Choose type of checkers that you want to play!: ");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("1 - Polish, 2 - Brazilian, 3 - Canadian\n");
+            System.out.println("1 - Thai, 2 - English, 3 - Shashki\n");
             String choice = scanner.nextLine();
             frame.choose(choice);
             frame.out.println(choice);
@@ -98,15 +98,28 @@ Połaczenie z socketem
     }
 
     public void setClient() {
-        if (frame.player == PLAYER1) {
-            frame.thisPlayerTeam = Piece.Team.BLACK;
-            frame.anotherPlayerTeam = Piece.Team.WHITE;
-            super.setTitle("Your turn!");
-        }
-        else if (frame.player == PLAYER2) {
-            frame.thisPlayerTeam = Piece.Team.WHITE;
-            frame.anotherPlayerTeam = Piece.Team.BLACK;
-            super.setTitle("Opponent's turn!");
+        if (frame.checkersBoard instanceof EnglishCheckersBoard || frame.checkersBoard instanceof ThaiCheckersBoard) {
+            if (frame.player == PLAYER1) {
+                frame.thisPlayerTeam = Piece.Team.BLACK;
+                frame.anotherPlayerTeam = Piece.Team.WHITE;
+                super.setTitle("Your turn!");
+            }
+            else if (frame.player == PLAYER2) {
+                frame.thisPlayerTeam = Piece.Team.WHITE;
+                frame.anotherPlayerTeam = Piece.Team.BLACK;
+                super.setTitle("Opponent's turn!");
+            }
+        } else if (frame.checkersBoard instanceof ShashkiBoard) {
+            if (frame.player == PLAYER1) {
+                frame.thisPlayerTeam = Piece.Team.WHITE;
+                frame.anotherPlayerTeam = Piece.Team.BLACK;
+                super.setTitle("Your turn!");
+            }
+            else if (frame.player == PLAYER2) {
+                frame.thisPlayerTeam = Piece.Team.BLACK;
+                frame.anotherPlayerTeam = Piece.Team.WHITE;
+                super.setTitle("Opponent's turn!");
+            }
         }
         frame.size = frame.checkersBoard.getSize();
         frame.checkersBoardSize = new Dimension(50 * size, 50 * size);
@@ -254,7 +267,14 @@ Połaczenie z socketem
         if (!successiveCaptureMode) {
             legalMovesBoard = frame.checkersBoard.checkForLegalMovesOnBoard();
         } else {
-            List<int[]> singleSquareMoves = CheckersBoard.board[successiveX][successiveY].piece.checkLegalMoves();
+            Piece.PieceType pieceType = CheckersBoard.board[successiveX][successiveY].piece.getPieceType();
+            boolean functionality;
+            if (pieceType == Piece.PieceType.KING) {
+                functionality = checkersBoard.getQueenLogic();
+            } else {
+                functionality = checkersBoard.getBackwardsLogic();
+            }
+            List<int[]> singleSquareMoves = CheckersBoard.board[successiveX][successiveY].piece.checkLegalMoves(functionality);
             for (int[] move : singleSquareMoves) {
                 if(move[2]>0) {
                     legalMovesBoard.add(new int[]{successiveX, successiveY, move[0], move[1], move[2], move[3]});

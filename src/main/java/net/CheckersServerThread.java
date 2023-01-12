@@ -1,8 +1,6 @@
 package net;
 
-import org.example.CheckersBoard;
-import org.example.EnglishCheckersBoard;
-import org.example.Square;
+import org.example.*;
 
 import java.io.*;
 import java.net.*;
@@ -53,9 +51,9 @@ public class CheckersServerThread
                 String choice = inF.readLine();
                 client = new CheckersClient();
                 switch (choice) {
-                    //case "1" -> checkersBoard = new CheckersBoard(10);
+                    case "1" -> checkersBoard = new ThaiCheckersBoard();
                     case "2" -> checkersBoard = new EnglishCheckersBoard();
-                    //case "3" -> checkersBoard = new CheckersBoard(12);
+                    case "3" -> checkersBoard = new ShashkiBoard();
                     default -> throw new IllegalArgumentException();
                 }
                 board = checkersBoard.getBoard();

@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EnglishCheckersBoard extends CheckersBoard {
-
+public class ShashkiBoard extends CheckersBoard{
     private static int lim;
     private static int rows;
-    private static final boolean queenMovesOnDiagonals = false;
-    private static final boolean movingBackwards = false;
+    private static final boolean queenMovesOnDiagonals = true;
+    private static final boolean movingBackwards = true;
 
-    public EnglishCheckersBoard() {
+    public ShashkiBoard() {
         lim = 8;
         rows = 3;
         board = new Square[lim][lim];
@@ -51,53 +50,34 @@ public class EnglishCheckersBoard extends CheckersBoard {
             squaresToUpdate.add(potentiallyJumped);
         }
 
-        if (secondX==lim-1) {
-            if (CheckersClient.frame.thisPlayerTeam == Piece.Team.WHITE && yourMove) {
-                board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, Piece.PieceType.KING);
-            } else if (CheckersClient.frame.thisPlayerTeam == Piece.Team.BLACK && !yourMove) {
-                board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, Piece.PieceType.KING);
-            }
-            clearSuccessive();
-            successiveCapMode=false;
+        if (yourMove && ((secondX==lim-1 && CheckersClient.frame.thisPlayerTeam == Piece.Team.WHITE) || (secondX==0 && CheckersClient.frame.thisPlayerTeam == Piece.Team.BLACK))){
+            board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, Piece.PieceType.KING);
+            addedKing = true;
+        } else if (!yourMove && ((secondX==lim-1 && CheckersClient.frame.thisPlayerTeam == Piece.Team.BLACK) || (secondX==0 && CheckersClient.frame.thisPlayerTeam == Piece.Team.WHITE))) {
+            board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, Piece.PieceType.KING);
             addedKing = true;
         }
-        if (secondX==0) {
-            if (CheckersClient.frame.thisPlayerTeam == Piece.Team.BLACK && yourMove) {
-                board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, Piece.PieceType.KING);
-            }
-            else if (CheckersClient.frame.thisPlayerTeam == Piece.Team.WHITE && !yourMove) {
-                board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, Piece.PieceType.KING);
-            }
-            clearSuccessive();
-            successiveCapMode=false;
-            addedKing = true;
+        if (!addedKing && yourMove) {
+            board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
+        } else if (!addedKing) {
+            board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
         }
         if(!successiveCapMode) {
             if (yourMove) {
-                if (!addedKing) {
-                    board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
-                }
                 CheckersClient.frame.setTitle("Opponent's turn!");
-                //super.setTitle("Opponent's turn!");
                 System.out.println("Successful move!");
             }
             else {
-                if (!addedKing) {
-                    board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
-                }
                 CheckersClient.frame.setTitle("Your turn!");
-                //super.setTitle("Your turn!");
                 System.out.println("Opponent made a move");
             }
 
         }
         else {
             if (yourMove) {
-                board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
                 System.out.println("Successive capture possible!");
             }
             else {
-                board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
                 System.out.println("You fell victim to a successive capture");
             }
 
@@ -111,14 +91,24 @@ public class EnglishCheckersBoard extends CheckersBoard {
     public void isSuccessiveCaptureAvailable(int[] attemptedMove) {
         Square[][] boardClone = CheckersBoard.board.clone();
         boolean goodMove = false;
+        Piece.PieceType checkedPieceType;
         boardClone[attemptedMove[0]][attemptedMove[1]].setTaken(false);
-        boardClone[attemptedMove[2]][attemptedMove[3]].setPiece(CheckersClient.frame.thisPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
+        if (attemptedMove[2]==0 && CheckersClient.frame.thisPlayerTeam== Piece.Team.BLACK) {
+            boardClone[attemptedMove[2]][attemptedMove[3]].setPiece(CheckersClient.frame.thisPlayerTeam, Piece.PieceType.KING);
+            checkedPieceType = Piece.PieceType.KING;
+        } else if (attemptedMove[2]==lim-1 && CheckersClient.frame.thisPlayerTeam== Piece.Team.WHITE) {
+            boardClone[attemptedMove[2]][attemptedMove[3]].setPiece(CheckersClient.frame.thisPlayerTeam, Piece.PieceType.KING);
+            checkedPieceType = Piece.PieceType.KING;
+        } else {
+            boardClone[attemptedMove[2]][attemptedMove[3]].setPiece(CheckersClient.frame.thisPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
+            checkedPieceType = CheckersClient.frame.attemptedMovedPieceType;
+        }
         CheckersClient.frame.successiveJumpedXYs.add(getJumpedPieceCoordinates(attemptedMove[0],attemptedMove[1],attemptedMove[2],attemptedMove[3]));
         List<int[]> possibleNextMoves;
-        if (CheckersClient.frame.attemptedMovedPieceType==Piece.PieceType.KING) {
-            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(queenMovesOnDiagonals);
+        if (checkedPieceType == Piece.PieceType.KING) {
+            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(getQueenLogic());
         } else {
-            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(movingBackwards);
+            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(getBackwardsLogic());
         }
         if (possibleNextMoves!=null) {
             for (int[] move : possibleNextMoves) {

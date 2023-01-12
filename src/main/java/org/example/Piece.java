@@ -5,7 +5,7 @@ import java.util.List;
 public interface Piece {
     enum Team{BLACK, WHITE}
     enum PieceType{MAN, KING}
-    List<int[]> checkLegalMoves();
+    List<int[]> checkLegalMoves(boolean functionality);
     Team getTeam();
     void setWhite();
     void setBlack();

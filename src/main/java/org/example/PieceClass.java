@@ -6,7 +6,7 @@ abstract class PieceClass implements Piece{
 
     private Piece.Team team;
 
-    public abstract List<int[]> checkLegalMoves();
+
     public void setWhite(){
         this.team = Team.WHITE;
     }
