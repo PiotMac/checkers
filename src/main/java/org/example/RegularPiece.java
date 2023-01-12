@@ -49,7 +49,7 @@ public class RegularPiece extends PieceClass {
             if (checkCapture(neighbours[i],i)!=null) {
                 captureMoves.add(checkCapture(neighbours[i], i));
             }
-            else if (!neighbours[i].isTaken()) {
+            else if (!neighbours[i].isTaken() && (i==getForwardIds()[0] || i==getForwardIds()[1])) {
                 nonCaptureMoves.add(new int[] {neighbours[i].getX(), neighbours[i].getY(), 0, this.PieceTypeId});
             }
         }

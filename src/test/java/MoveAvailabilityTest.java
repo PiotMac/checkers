@@ -62,5 +62,13 @@ public class MoveAvailabilityTest {
         Assert.assertArrayEquals(jump.get(0), new int[]{2,1,1,1});
         Assert.assertArrayEquals(jump.get(1), new int[]{6,1,1,1});
     }
-
+    @Test
+    public void typeTest() {
+        Square[][] board = checkersBoard.getBoard();
+        clearBoard(board);
+        board[3][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
+        board[4][3].setPiece(Piece.Team.BLACK, Piece.PieceType.KING);
+        Assert.assertEquals(board[3][2].piece.getPieceType(), Piece.PieceType.MAN);
+        Assert.assertEquals(board[4][3].piece.getPieceType(), Piece.PieceType.KING);
+    }
 }

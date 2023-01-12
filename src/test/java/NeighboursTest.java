@@ -21,12 +21,12 @@ public class NeighboursTest {
     public void getNeighboursTestAdvanced() {
         checkersBoard.getBoard();
         //TopLeft
-        Assert.assertEquals(CheckersBoard.board[8][1], CheckersBoard.board[9][2].getTopLeftNeighbour());
+        Assert.assertEquals(CheckersBoard.board[1][0], CheckersBoard.board[0][1].getBottomLeftNeighbour());
         //TopRight
-        Assert.assertEquals(CheckersBoard.board[8][3], CheckersBoard.board[9][2].getTopRightNeighbour());
+        Assert.assertEquals(CheckersBoard.board[1][2], CheckersBoard.board[0][1].getBottomRightNeighbour());
         //BottomLeft
-        Assert.assertNull(CheckersBoard.board[9][2].getBottomLeftNeighbour());
+        Assert.assertNull(CheckersBoard.board[0][1].getTopLeftNeighbour());
         //BottomRight
-        Assert.assertNull(CheckersBoard.board[9][2].getBottomRightNeighbour());
+        Assert.assertNull(CheckersBoard.board[0][1].getTopRightNeighbour());
     }
 }

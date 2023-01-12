@@ -29,10 +29,8 @@ public class QueenPiece extends PieceClass{
     }
     private void getNonCaptures(Square currentSquare, int direction, List<int[]> listToAdd) {
         Square squareBehind = currentSquare.getNeighbours()[direction];
-        while (squareBehind!=null) {
-            if (!squareBehind.isTaken()) {
-                listToAdd.add(new int[]{squareBehind.x, squareBehind.y, 0, this.PieceTypeId});
-            }
+        while (squareBehind!=null && !squareBehind.isTaken()) {
+            listToAdd.add(new int[]{squareBehind.x, squareBehind.y, 0, this.PieceTypeId});
             squareBehind = squareBehind.getNeighbours()[direction];
         }
     }

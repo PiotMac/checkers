@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="stable version 1.0 - three playable variants">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ThaiMoveAvailabilityTest.java" afterDir="false" />
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="further decentralized board code">
+      <change afterPath="$PROJECT_DIR$/src/test/java/ShashkiMoveAvailabilityTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ShashkiBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ShashkiBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ThaiCheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ThaiCheckersBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ThaiMoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ThaiMoveAvailabilityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,57 +37,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn test" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CheckersServerThread">
-    <configuration name="CheckersClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="net.CheckersClient" />
-      <module name="checkers" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="net.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CheckersServerThread" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="net.CheckersServerThread" />
-      <module name="checkers" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="net.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.ThaiMoveAvailabilityTest.initialMoveAvailabilityTest">
     <configuration name="All in checkers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
@@ -96,40 +70,64 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThaiMoveAvailabilityTest.basicMoveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShashkiMoveAvailabilityTest.checkBackwardsCapture" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ThaiMoveAvailabilityTest" />
-      <option name="METHOD_NAME" value="basicMoveTest" />
+      <option name="MAIN_CLASS_NAME" value="ShashkiMoveAvailabilityTest" />
+      <option name="METHOD_NAME" value="checkBackwardsCapture" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThaiMoveAvailabilityTest.jumpBackwardsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShashkiMoveAvailabilityTest.checkKingCapture" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="checkers" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ShashkiMoveAvailabilityTest" />
+      <option name="METHOD_NAME" value="checkKingCapture" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ThaiMoveAvailabilityTest.initialMoveAvailabilityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ThaiMoveAvailabilityTest" />
-      <option name="METHOD_NAME" value="jumpBackwardsTest" />
+      <option name="METHOD_NAME" value="initialMoveAvailabilityTest" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="org.example in checkers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="checkers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.CheckersClient" />
-      <item itemvalue="Application.CheckersServerThread" />
-      <item itemvalue="JUnit.ThaiMoveAvailabilityTest.basicMoveTest" />
-      <item itemvalue="JUnit.ThaiMoveAvailabilityTest.jumpBackwardsTest" />
+      <item itemvalue="JUnit.ShashkiMoveAvailabilityTest.checkKingCapture" />
+      <item itemvalue="JUnit.ThaiMoveAvailabilityTest.initialMoveAvailabilityTest" />
+      <item itemvalue="JUnit.ShashkiMoveAvailabilityTest.checkBackwardsCapture" />
+      <item itemvalue="JUnit.org.example in checkers" />
       <item itemvalue="JUnit.All in checkers" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CheckersClient" />
-        <item itemvalue="Application.CheckersServerThread" />
+        <item itemvalue="JUnit.ThaiMoveAvailabilityTest.initialMoveAvailabilityTest" />
+        <item itemvalue="JUnit.ShashkiMoveAvailabilityTest.checkKingCapture" />
         <item itemvalue="JUnit.All in checkers" />
-        <item itemvalue="JUnit.ThaiMoveAvailabilityTest.jumpBackwardsTest" />
-        <item itemvalue="JUnit.ThaiMoveAvailabilityTest.basicMoveTest" />
+        <item itemvalue="JUnit.org.example in checkers" />
+        <item itemvalue="JUnit.ShashkiMoveAvailabilityTest.checkBackwardsCapture" />
       </list>
     </recent_temporary>
   </component>
@@ -155,6 +153,8 @@
       <workItem from="1673427988414" duration="16807000" />
       <workItem from="1673454380997" duration="3269000" />
       <workItem from="1673461153951" duration="18971000" />
+      <workItem from="1673528767612" duration="637000" />
+      <workItem from="1673529449982" duration="977000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -247,7 +247,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673522226209</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="further decentralized board code">
+      <created>1673526700398</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1673526700398</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,16 +287,20 @@
     <MESSAGE value="moved the majority of methods from client to CheckersBoard" />
     <MESSAGE value="almost made it that only two players can join the server" />
     <MESSAGE value="stable version 1.0 - three playable variants" />
-    <option name="LAST_COMMIT_MESSAGE" value="stable version 1.0 - three playable variants" />
+    <MESSAGE value="further decentralized board code" />
+    <option name="LAST_COMMIT_MESSAGE" value="further decentralized board code" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lista_4$All_in_checkers.ic" NAME="All in checkers Coverage Results" MODIFIED="1673524479933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/lista_4$All_in_checkers.ic" NAME="All in checkers Coverage Results" MODIFIED="1673529492929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/checkers$MoveAvailabilityTest_basicMoveTest.ic" NAME="MoveAvailabilityTest.basicMoveTest Coverage Results" MODIFIED="1671638928496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTestBlack.ic" NAME="MoveAvailabilityTest.jumpTestBlack Coverage Results" MODIFIED="1673454397312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/lista_4$org_example_in_checkers.ic" NAME="org.example in checkers Coverage Results" MODIFIED="1673529370790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTest.ic" NAME="MoveAvailabilityTest.jumpTest Coverage Results" MODIFIED="1673454087226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

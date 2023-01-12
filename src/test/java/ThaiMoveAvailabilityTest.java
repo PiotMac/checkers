@@ -1,9 +1,13 @@
+
 import org.example.CheckersBoard;
 import org.example.Piece;
 import org.example.Square;
 import org.example.ThaiCheckersBoard;
 import org.junit.Assert;
 import org.junit.Test;
+
+
+import java.util.List;
 
 public class ThaiMoveAvailabilityTest {
     CheckersBoard checkersBoard = new ThaiCheckersBoard();
@@ -36,6 +40,35 @@ public class ThaiMoveAvailabilityTest {
         board[1][2].setPiece(Piece.Team.BLACK, Piece.PieceType.MAN);
         Assert.assertNull(board[2][3].piece.checkLegalMoves(checkersBoard.getBackwardsLogic()));
     }
+    @Test
+    public void farCaptureTest() {
+        Square[][] board = checkersBoard.getBoard();
+        clearBoard(board);
+        board[2][3].setPiece(Piece.Team.BLACK, Piece.PieceType.MAN);
+        board[5][6].setPiece(Piece.Team.WHITE, Piece.PieceType.KING);
+        List<int[]> availableMove = board[5][6].piece.checkLegalMoves(checkersBoard.getQueenLogic());
+        Assert.assertEquals(availableMove.size(),1);
+        Assert.assertArrayEquals(availableMove.get(0), new int[]{1,2,1,1});
+    }
+    @Test
+    public void cornerMoveTest() {
+        Square[][] board = checkersBoard.getBoard();
+        clearBoard(board);
+        board[1][6].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
+        board[0][7].setPiece(Piece.Team.WHITE, Piece.PieceType.KING);
+        Assert.assertNull(board[0][7].piece.checkLegalMoves(checkersBoard.getQueenLogic()));
+    }
 
+
+//    @Test
+//    public void initialMoveAvailabilityTest() {
+//        CheckersClient.frame = new CheckersClient();
+//        CheckersClient.frame.createBoard();
+//
+//        List<int[]> initialLegalMoves = checkersBoard.checkForLegalMovesOnBoard();
+//        for (int[] move : initialLegalMoves) {
+//            System.out.println(Arrays.toString(move));
+//        }
+//    }
 
 }
