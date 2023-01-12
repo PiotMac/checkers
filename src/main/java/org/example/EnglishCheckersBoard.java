@@ -113,6 +113,7 @@ public class EnglishCheckersBoard extends CheckersBoard {
             }
 
         }
+
         return squaresToUpdate;
     }
 

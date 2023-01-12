@@ -23,7 +23,7 @@ public abstract class CheckersBoard {
     }
 
     /**
-     * Metoda tworząca i zwracająca planszę
+     * Metoda tworząca i zwracająca planszę w początkowym stanie
      * @return - całą planszę
      */
     public Square[][] getBoard() {
@@ -55,7 +55,6 @@ public abstract class CheckersBoard {
             board[potentiallyJumped[0]][potentiallyJumped[1]].setTaken(false);
             squaresToUpdate.add(potentiallyJumped);
         }
-
         if (yourMove && ((secondX==lim-1 && CheckersClient.frame.thisPlayerTeam == Piece.Team.WHITE) || (secondX==0 && CheckersClient.frame.thisPlayerTeam == Piece.Team.BLACK))){
             board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, Piece.PieceType.KING);
             addedKing = true;
@@ -69,6 +68,7 @@ public abstract class CheckersBoard {
             board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
         }
         if(!successiveCapMode) {
+
             if (yourMove) {
                 CheckersClient.frame.setTitle("Opponent's turn!");
                 System.out.println("Successful move!");
@@ -123,7 +123,7 @@ public abstract class CheckersBoard {
     }
 
     /**
-     * Metoda sprawdzająca wszystkie legalne ruchy na planszy
+     * Metoda sprawdzająca wszystkie legalne ruchy na planszy dla danego gracza
      * @param movingTeam - kolor gracza, który ma wykonać ruch
      * @return - zwraca listę współrzędnych dozwolonych ruchów
      */
@@ -205,13 +205,15 @@ public abstract class CheckersBoard {
             }
         }
         if (!goodMove) {
-            CheckersClient.frame.reprintBoard(CheckersClient.frame.successiveJumpedXYs);
+            for (int[] move : CheckersClient.frame.successiveJumpedXYs) {
+                CheckersBoard.board[move[0]][move[1]].setTaken(false);
+            }
             clearSuccessive();
         }
     }
 
     /**
-     * Metoda usuwająca bierki po wielokrotnym biciu
+     * Metoda resetująca flagi wielokrotnego bicia
      */
     void clearSuccessive() {
         CheckersClient.frame.successiveCaptureMode = false;
@@ -221,7 +223,7 @@ public abstract class CheckersBoard {
     }
 
     /**
-     * Metoda tworząca planszę oraz jej strukturę
+     * Metoda tworząca początkową planszę oraz jej strukturę
      */
     void createBoard() {
         // Tworzenie pól i ich współrzędnych

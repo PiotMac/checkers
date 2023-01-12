@@ -25,7 +25,7 @@ public class KingPiece extends PieceClass{
      * Metoda zwracająca ruchy, w których król jest w stanie bić
      * @param currentSquare - aktualne pole króla
      * @param direction - kierunek przekątnej
-     * @return - zwraca współrzędne ruchu bijącego
+     * @return - zwraca współrzędne ruchu bijącego w formacie {końcowa pierwsza współrzędna, końcowa druga współrzędna, flaga bicia, id typu figury}
      */
     private int[] getCaptureMoves(Square currentSquare, int direction) {
         Square squareBehind = currentSquare.getNeighbours()[direction];
@@ -34,6 +34,8 @@ public class KingPiece extends PieceClass{
                 Square squareOneBack = squareBehind.getNeighbours()[direction];
                 if (squareOneBack != null && !squareOneBack.isTaken()) {
                     return new int[]{squareOneBack.x, squareOneBack.y, 1, this.PieceTypeId};
+                } else {
+                    return null;
                 }
             } else if (squareBehind.isTaken() && squareBehind.getTeam()==this.getTeam()) {
                 return null;
@@ -67,11 +69,13 @@ public class KingPiece extends PieceClass{
         List<int[]> nonCaptureMoves = new ArrayList<>();
         List<int[]> captureMoves = new ArrayList<>();
         if (functionality) {
+            //próba znalezienia bicia
             for (int i=0; i<4; i++) {
                 if (getCaptureMoves(this.currentSquare,i)!=null) {
                     captureMoves.add(getCaptureMoves(this.currentSquare,i));
                 }
             }
+            //jeżeli nie udało znaleźć się bicia, dodaj do listy do zwrócenia możliwe ruchy
             if (captureMoves.isEmpty()) {
                 for (int i=0; i<4; i++) {
                     getNonCaptures(this.currentSquare, i, nonCaptureMoves);
