@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added working english checkers (switch 2)">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="almost made it that only two players can join the server">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/Checkers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/Checkers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,22 +92,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveAvailabilityTest.KingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MoveAvailabilityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="MoveAvailabilityTest" />
-      <option name="METHOD_NAME" value="KingTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MoveAvailabilityTest.jumpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="NeighboursTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MoveAvailabilityTest" />
-      <option name="METHOD_NAME" value="jumpTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="NeighboursTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -116,17 +113,17 @@
     <list>
       <item itemvalue="Application.CheckersClient" />
       <item itemvalue="Application.CheckersServerThread" />
+      <item itemvalue="JUnit.MoveAvailabilityTest" />
+      <item itemvalue="JUnit.NeighboursTest" />
       <item itemvalue="JUnit.All in checkers" />
-      <item itemvalue="JUnit.MoveAvailabilityTest.KingTest" />
-      <item itemvalue="JUnit.MoveAvailabilityTest.jumpTest" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.CheckersClient" />
         <item itemvalue="Application.CheckersServerThread" />
+        <item itemvalue="JUnit.NeighboursTest" />
+        <item itemvalue="JUnit.MoveAvailabilityTest" />
         <item itemvalue="JUnit.All in checkers" />
-        <item itemvalue="JUnit.MoveAvailabilityTest.KingTest" />
-        <item itemvalue="JUnit.MoveAvailabilityTest.jumpTest" />
       </list>
     </recent_temporary>
   </component>
@@ -151,7 +148,7 @@
       <workItem from="1673360319786" duration="11861000" />
       <workItem from="1673427988414" duration="16807000" />
       <workItem from="1673454380997" duration="3269000" />
-      <workItem from="1673461153951" duration="10801000" />
+      <workItem from="1673461153951" duration="18971000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -230,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673437792929</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="moved the majority of methods from client to CheckersBoard">
+      <created>1673486825158</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1673486825158</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +264,9 @@
     <MESSAGE value="changed Piece class structure, cleaned up unused methods" />
     <MESSAGE value="added double jumping! and rough queen outline" />
     <MESSAGE value="added working english checkers (switch 2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added working english checkers (switch 2)" />
+    <MESSAGE value="moved the majority of methods from client to CheckersBoard" />
+    <MESSAGE value="almost made it that only two players can join the server" />
+    <option name="LAST_COMMIT_MESSAGE" value="almost made it that only two players can join the server" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

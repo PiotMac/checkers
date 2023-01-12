@@ -17,7 +17,6 @@ public class CheckersClient extends Frame implements  ActionListener {
     PrintWriter out = null;
     BufferedReader in = null;
     int size;
-    //Square[][] board;
     Button[][] buttons;
     GridLayout grid;
     public Piece.Team thisPlayerTeam;
@@ -33,7 +32,6 @@ public class CheckersClient extends Frame implements  ActionListener {
     public final static int PLAYER1 = 1;
     public final static int PLAYER2 = 2;
     String str;
-
     public CheckersClient() {}
 
     /*
@@ -218,6 +216,10 @@ Połaczenie z socketem
         try {
             //Odbieranie z serwera
             str = frame.in.readLine();
+            if (str == null) {
+                System.out.println("YOU'VE WON!");
+                System.exit(0);
+            }
             String[] coordinates = str.split(" ");
             //If this player made a move
             if(coordinates.length==1 && Integer.parseInt(coordinates[0])==0) {
@@ -270,6 +272,8 @@ Połaczenie z socketem
             }
             if (legalMovesBoard.isEmpty()) {
                 System.out.println("GAME OVER, YOU LOST");
+                frame.out.println("END");
+                System.exit(0);
             }
         }
         //Getting coordinates of the second click

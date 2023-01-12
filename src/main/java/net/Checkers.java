@@ -27,6 +27,11 @@ public class Checkers implements Runnable {
     private void gameState(BufferedReader inR, PrintWriter outLocal, PrintWriter outOpp) throws IOException {
         // Odbieranie od socketa
         String line = inR.readLine();
+        if (line.equals("END")) {
+            CheckersServerThread.playingGame = false;
+            outLocal.println("END");
+            CheckersServerThread.end();
+        }
         String[] coordinates = line.split(" ");
         first_click[0] = Integer.parseInt(coordinates[0]);
         first_click[1] = Integer.parseInt(coordinates[1]);
