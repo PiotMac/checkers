@@ -3,13 +3,11 @@ package org.example;
 import net.CheckersClient;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class EnglishCheckersBoard extends CheckersBoard {
 
-    private static int lim;
-    private static int rows;
+
     private static final boolean queenMovesOnDiagonals = false;
     private static final boolean movingBackwards = false;
 
@@ -44,7 +42,6 @@ public class EnglishCheckersBoard extends CheckersBoard {
         squaresToUpdate.add(new int[] {firstX, firstY});
         squaresToUpdate.add(new int[] {secondX, secondY});
         boolean addedKing = false;
-
         int[] potentiallyJumped = getJumpedPieceCoordinates(firstX, firstY, secondX, secondY);
         if (potentiallyJumped!=null) {
             board[potentiallyJumped[0]][potentiallyJumped[1]].setTaken(false);
@@ -110,7 +107,6 @@ public class EnglishCheckersBoard extends CheckersBoard {
     @Override
     public void isSuccessiveCaptureAvailable(int[] attemptedMove) {
         Square[][] boardClone = CheckersBoard.board.clone();
-        boolean goodMove = false;
         boardClone[attemptedMove[0]][attemptedMove[1]].setTaken(false);
         boardClone[attemptedMove[2]][attemptedMove[3]].setPiece(CheckersClient.frame.thisPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
         CheckersClient.frame.successiveJumpedXYs.add(getJumpedPieceCoordinates(attemptedMove[0],attemptedMove[1],attemptedMove[2],attemptedMove[3]));
@@ -120,72 +116,7 @@ public class EnglishCheckersBoard extends CheckersBoard {
         } else {
             possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(movingBackwards);
         }
-        if (possibleNextMoves!=null) {
-            for (int[] move : possibleNextMoves) {
-                if (move[2]>0) {
-                    goodMove=true;
-                    for (int[] jumpedXY : CheckersClient.frame.successiveJumpedXYs) {
-                        if (Arrays.equals(getJumpedPieceCoordinates(attemptedMove[2], attemptedMove[3], move[0], move[1]),jumpedXY)) {
-                            goodMove=false;
-                            break;
-                        }
-                    }
-                    if (goodMove) {
-                        CheckersClient.frame.successiveCaptureMode = true;
-                        CheckersClient.frame.successiveX=attemptedMove[2];
-                        CheckersClient.frame.successiveY=attemptedMove[3];
-                        break;
-                    }
-                }
-            }
-        }
-        if (!goodMove) {
-            CheckersClient.frame.reprintBoard(CheckersClient.frame.successiveJumpedXYs);
-            clearSuccessive();
-        }
+        successfulCaptureChanges(attemptedMove, possibleNextMoves);
     }
 
-
-
-
-
-    private void clearSuccessive() {
-        CheckersClient.frame.successiveCaptureMode = false;
-        CheckersClient.frame.successiveX=-1;
-        CheckersClient.frame.successiveY=-1;
-        CheckersClient.frame.successiveJumpedXYs.clear();
-    }
-
-    private void createBoard() {
-        for (int i = 0; i < lim; i++) {
-            for (int j = 0; j < lim; j++) {
-                if ((i+j)%2 != 0) {
-                    board[i][j] = new Square(lim);
-                    board[i][j].setCoordinates(i, j);
-                }
-                else {
-                    board[i][j] = null;
-                }
-            }
-        }
-        //For every playable square set neighbours
-        for (int i = 0; i < lim; i++) {
-            for (int j = 0; j < lim; j++) {
-                if ((i+j)%2 != 0) {
-                    board[i][j].setNeighbours();
-                }
-            }
-        }
-        //Set starting pieces
-        for (int i = 0; i < lim; i++) {
-            for (int j = 0; j < lim; j++) {
-                if ((i+j)%2 != 0 && i < rows) {
-                    board[i][j].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
-                }
-                else if ((i+j)%2 != 0 && i > lim-rows-1) {
-                    board[i][j].setPiece(Piece.Team.BLACK, Piece.PieceType.MAN);
-                }
-            }
-        }
-    }
 }

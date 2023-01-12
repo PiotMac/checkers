@@ -13,8 +13,8 @@ public class MoveAvailabilityTest {
     @Test
     public void basicMoveTest() {
         Square[][] board = checkersBoard.getBoard();
-        Assert.assertNull(board[0][1].piece.checkLegalMoves());//a blocked piece should not have legal moves
-        List<int[]> legalMoves = board[2][3].piece.checkLegalMoves();
+        Assert.assertNull(board[0][1].piece.checkLegalMoves(checkersBoard.getBackwardsLogic()));//a blocked piece should not have legal moves
+        List<int[]> legalMoves = board[2][3].piece.checkLegalMoves(checkersBoard.getBackwardsLogic());
         List<int[]> mockList = new ArrayList<>();
         mockList.add(new int[]{3,2,0,0});
         mockList.add(new int[]{3,4,0,0});
@@ -42,7 +42,7 @@ public class MoveAvailabilityTest {
         board[5][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
 
         //you have to jump if that possibility exists, you can't jump backwards
-        List<int[]> jump = board[4][3].piece.checkLegalMoves();
+        List<int[]> jump = board[4][3].piece.checkLegalMoves(checkersBoard.getBackwardsLogic());
         Assert.assertEquals(jump.size(),1);
         Assert.assertArrayEquals(jump.get(0), new int[]{2,1,1,0});
 
@@ -57,7 +57,7 @@ public class MoveAvailabilityTest {
         board[5][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
 
         //you can jump backwards as a king
-        List<int[]> jump = board[4][3].piece.checkLegalMoves();
+        List<int[]> jump = board[4][3].piece.checkLegalMoves(checkersBoard.getQueenLogic());
         Assert.assertEquals(jump.size(),2);
         Assert.assertArrayEquals(jump.get(0), new int[]{2,1,1,1});
         Assert.assertArrayEquals(jump.get(1), new int[]{6,1,1,1});
