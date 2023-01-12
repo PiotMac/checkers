@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added working english checkers (switch 2)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersServerThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PieceClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/PieceClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +58,7 @@
       <command value="mvn test" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.CheckersServerThread">
+  <component name="RunManager" selected="Application.CheckersClient">
     <configuration name="CheckersClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="net.CheckersClient" />
       <module name="checkers" />
@@ -154,6 +151,7 @@
       <workItem from="1673360319786" duration="11861000" />
       <workItem from="1673427988414" duration="16807000" />
       <workItem from="1673454380997" duration="3269000" />
+      <workItem from="1673461153951" duration="10801000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -269,9 +267,9 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lista_4$All_in_checkers.ic" NAME="All in checkers Coverage Results" MODIFIED="1673455661334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/checkers$MoveAvailabilityTest_basicMoveTest.ic" NAME="MoveAvailabilityTest.basicMoveTest Coverage Results" MODIFIED="1671638928496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTestBlack.ic" NAME="MoveAvailabilityTest.jumpTestBlack Coverage Results" MODIFIED="1673454397312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/checkers$MoveAvailabilityTest_basicMoveTest.ic" NAME="MoveAvailabilityTest.basicMoveTest Coverage Results" MODIFIED="1671638928496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/lista_4$MoveAvailabilityTest_jumpTest.ic" NAME="MoveAvailabilityTest.jumpTest Coverage Results" MODIFIED="1673454087226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/lista_4$All_in_checkers.ic" NAME="All in checkers Coverage Results" MODIFIED="1673455661334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

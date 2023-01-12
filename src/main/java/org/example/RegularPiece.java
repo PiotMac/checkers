@@ -3,7 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegularPiece extends PieceClass{
+public class RegularPiece extends PieceClass {
     private Square[] neighbours;
     private final int PieceTypeId = 0;
     @Override
