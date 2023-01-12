@@ -29,7 +29,7 @@ public class ThaiMoveAvailabilityTest {
         board[2][3].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
         Assert.assertEquals(board[2][3].piece.checkLegalMoves(checkersBoard.getBackwardsLogic()).size(),2);
         board[2][3].setPiece(Piece.Team.WHITE, Piece.PieceType.KING);
-        Assert.assertEquals(board[2][3].piece.checkLegalMoves(checkersBoard.getQueenLogic()).size(),11);
+        Assert.assertEquals(board[2][3].piece.checkLegalMoves(checkersBoard.getKingLogic()).size(),11);
     }
     @Test
     public void jumpBackwardsTest() {
@@ -48,7 +48,7 @@ public class ThaiMoveAvailabilityTest {
         clearBoard(board);
         board[2][3].setPiece(Piece.Team.BLACK, Piece.PieceType.MAN);
         board[5][6].setPiece(Piece.Team.WHITE, Piece.PieceType.KING);
-        List<int[]> availableMove = board[5][6].piece.checkLegalMoves(checkersBoard.getQueenLogic());
+        List<int[]> availableMove = board[5][6].piece.checkLegalMoves(checkersBoard.getKingLogic());
         Assert.assertEquals(availableMove.size(),1);
         Assert.assertArrayEquals(availableMove.get(0), new int[]{1,2,1,1});
     }
@@ -58,7 +58,7 @@ public class ThaiMoveAvailabilityTest {
         clearBoard(board);
         board[1][6].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
         board[0][7].setPiece(Piece.Team.WHITE, Piece.PieceType.KING);
-        Assert.assertNull(board[0][7].piece.checkLegalMoves(checkersBoard.getQueenLogic()));
+        Assert.assertNull(board[0][7].piece.checkLegalMoves(checkersBoard.getKingLogic()));
     }
 
 

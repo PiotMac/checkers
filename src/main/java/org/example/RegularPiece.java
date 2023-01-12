@@ -3,27 +3,29 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa pionka
+ */
 public class RegularPiece extends PieceClass {
     private Square[] neighbours;
     private final int PieceTypeId = 0;
+
+    /**
+     * Metoda ustawiająca aktualne pole oraz przydzielająca sąsiadów dla danego pionka
+     * @param square - pole, na którym znajduje się pionek
+     */
     @Override
     public void setCurrentSquare(Square square) {
         this.neighbours = square.getNeighbours();
     }
-    private int[] checkCapture(Square sq, int direction) {
-        if (sq.isTaken() && sq.getTeam()!=this.getTeam()){
-            Square squareBehind = sq.getNeighbours()[direction];
-            if (squareBehind!=null && !squareBehind.isTaken()) {
-                return new int[]{squareBehind.getX(),squareBehind.getY(), 1,  this.PieceTypeId};//final squareX, final squareY, captureAvailable, jumped squareX, jumped squareY
-            }
-        }
-        return null;
-    }
 
-
+    /**
+     * Metoda sprawdzająca listę możliwych ruchów
+     * @param functionality - określa, czy pionek może poruszać się do tyłu
+     * @return - lista dozwolonych ruchów
+     */
     @Override
     public List<int[]> checkLegalMoves(boolean functionality) {
-        //functionality: whether this piece can capture backwards or not
         List<int[]> nonCaptureMoves = new ArrayList<>();
         List<int[]> captureMoves = new ArrayList<>();
         if (functionality) {
@@ -44,10 +46,16 @@ public class RegularPiece extends PieceClass {
         }
     }
 
+    /**
+     * Metoda dodająca legalne ruchy do listy dozwolonych posunięć
+     * @param nonCaptureMoves - lista ruchów bez bicia
+     * @param captureMoves - lista ruchów z biciem
+     * @param i - kierunek bicia
+     */
     private void addToLists(List<int[]> nonCaptureMoves, List<int[]> captureMoves, int i) {
         if (neighbours[i]!=null){
-            if (checkCapture(neighbours[i],i)!=null) {
-                captureMoves.add(checkCapture(neighbours[i], i));
+            if (checkCapture(neighbours[i],i, this.PieceTypeId)!=null) {
+                captureMoves.add(checkCapture(neighbours[i], i, this.PieceTypeId));
             }
             else if (!neighbours[i].isTaken() && (i==getForwardIds()[0] || i==getForwardIds()[1])) {
                 nonCaptureMoves.add(new int[] {neighbours[i].getX(), neighbours[i].getY(), 0, this.PieceTypeId});
@@ -55,6 +63,12 @@ public class RegularPiece extends PieceClass {
         }
     }
 
+    /**
+     * Metoda zwracająca rodzaj bierki
+     * @return - typ bierki
+     */
     @Override
-    public PieceType getPieceType() {return PieceType.MAN;}
+    public PieceType getPieceType() {
+        return PieceType.MAN;
+    }
 }

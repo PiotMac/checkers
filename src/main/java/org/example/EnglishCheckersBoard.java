@@ -5,36 +5,52 @@ import net.CheckersClient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa warcabów angielskich
+ */
 public class EnglishCheckersBoard extends CheckersBoard {
-
-
-    private static final boolean queenMovesOnDiagonals = false;
+    // Króle poruszają się o jedno pole
+    private static final boolean kingsMovesOnDiagonals = false;
+    // Pionki nie mogą ruszać się do tyłu
     private static final boolean movingBackwards = false;
 
+    /**
+     * Konstruktor angielskich warcabów
+     */
     public EnglishCheckersBoard() {
         lim = 8;
         rows = 3;
         board = new Square[lim][lim];
     }
+
+    /**
+     * Metoda mówiąca jak mogą poruszać się króle
+     * @return - zwraca informację, czy król może poruszać się po całych przekątnych
+     */
     @Override
-    public int getSize() {
-        return lim;
+    public boolean getKingLogic() {
+        return kingsMovesOnDiagonals;
     }
 
-    @Override
-    public Square[][] getBoard() {
-        createBoard();
-        return board;
-    }
-    @Override
-    public boolean getQueenLogic() {
-        return queenMovesOnDiagonals;
-    }
+    /**
+     * Metoda mówiąca jak mogą poruszać się pionki
+     * @return - zwraca informację, czy pionki mogą poruszać się do tyłu
+     */
     @Override
     public boolean getBackwardsLogic() {
         return movingBackwards;
     }
 
+    /**
+     *
+     * @param firstX - pierwsza współrzędna pierwszego kliknięcia
+     * @param firstY - druga współrzędna pierwszego kliknięcia
+     * @param secondX - pierwsza współrzędna drugiego kliknięcia
+     * @param secondY - druga współrzędna pierwszego kliknięcia
+     * @param yourMove - parametr sprawdzający od kogo jest ruch
+     * @param successiveCapMode - parametr sprawdzający, czy włączony jest tryb wielokrotnego bicia
+     * @return - lista współrzędnych zaktualizowanych pól
+     */
     @Override
     public List<int[]> updateMove(int firstX, int firstY, int secondX, int secondY, boolean yourMove, boolean successiveCapMode) {
         List<int[]> squaresToUpdate = new ArrayList<>();
@@ -75,7 +91,6 @@ public class EnglishCheckersBoard extends CheckersBoard {
                     board[secondX][secondY].setPiece(CheckersClient.frame.thisPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
                 }
                 CheckersClient.frame.setTitle("Opponent's turn!");
-                //super.setTitle("Opponent's turn!");
                 System.out.println("Successful move!");
             }
             else {
@@ -83,7 +98,6 @@ public class EnglishCheckersBoard extends CheckersBoard {
                     board[secondX][secondY].setPiece(CheckersClient.frame.anotherPlayerTeam, CheckersClient.frame.attemptedMovedPieceType);
                 }
                 CheckersClient.frame.setTitle("Your turn!");
-                //super.setTitle("Your turn!");
                 System.out.println("Opponent made a move");
             }
 
@@ -102,8 +116,10 @@ public class EnglishCheckersBoard extends CheckersBoard {
         return squaresToUpdate;
     }
 
-
-
+    /**
+     * Metoda sprawdzająca, czy możliwe jest wielokrotne bicie
+     * @param attemptedMove - współrzędne wykonanego ruchu
+     */
     @Override
     public void isSuccessiveCaptureAvailable(int[] attemptedMove) {
         Square[][] boardClone = CheckersBoard.board.clone();
@@ -112,7 +128,7 @@ public class EnglishCheckersBoard extends CheckersBoard {
         CheckersClient.frame.successiveJumpedXYs.add(getJumpedPieceCoordinates(attemptedMove[0],attemptedMove[1],attemptedMove[2],attemptedMove[3]));
         List<int[]> possibleNextMoves;
         if (CheckersClient.frame.attemptedMovedPieceType==Piece.PieceType.KING) {
-            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(queenMovesOnDiagonals);
+            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(kingsMovesOnDiagonals);
         } else {
             possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(movingBackwards);
         }

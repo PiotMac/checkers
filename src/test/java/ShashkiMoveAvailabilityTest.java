@@ -3,7 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class ShashkiMoveAvailabilityTest {
-    CheckersBoard checkersBoard = new ShashkiBoard();
+    CheckersBoard checkersBoard = new ShashkiCheckersBoard();
     private void clearBoard(Square[][] board) {
         for (int i = 0; i<checkersBoard.getSize(); i++) {
             for (int j=0; j<checkersBoard.getSize(); j++) {
@@ -29,6 +29,6 @@ public class ShashkiMoveAvailabilityTest {
         board[0][7].setPiece(Piece.Team.BLACK, Piece.PieceType.KING);
         board[1][6].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
         board[2][5].setPiece(Piece.Team.BLACK, Piece.PieceType.MAN);
-        Assert.assertNull(board[0][7].piece.checkLegalMoves(checkersBoard.getQueenLogic()));
+        Assert.assertNull(board[0][7].piece.checkLegalMoves(checkersBoard.getKingLogic()));
     }
 }

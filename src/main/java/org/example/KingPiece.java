@@ -3,15 +3,30 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueenPiece extends PieceClass{
+/**
+ * Klasa króla
+ */
+public class KingPiece extends PieceClass{
     private final int PieceTypeId = 1;
     private Square[] neighbours;
     private Square currentSquare;
+
+    /**
+     * Metoda ustawiająca aktualne pole oraz przydzielająca sąsiadów dla danego króla
+     * @param square - pole, na którym znajduje się król
+     */
     @Override
     public void setCurrentSquare(Square square) {
         this.currentSquare = square;
         this.neighbours = square.getNeighbours();
     }
+
+    /**
+     * Metoda zwracająca ruchy, w których król jest w stanie bić
+     * @param currentSquare - aktualne pole króla
+     * @param direction - kierunek przekątnej
+     * @return - zwraca współrzędne ruchu bijącego
+     */
     private int[] getCaptureMoves(Square currentSquare, int direction) {
         Square squareBehind = currentSquare.getNeighbours()[direction];
         while (squareBehind!=null) {
@@ -27,6 +42,13 @@ public class QueenPiece extends PieceClass{
         }
         return null;
     }
+
+    /**
+     * Metoda sprawdzająca zwykłe ruchy
+     * @param currentSquare - aktualne pole króla
+     * @param direction - kierunek przekątnej
+     * @param listToAdd - lista legalnych ruchów
+     */
     private void getNonCaptures(Square currentSquare, int direction, List<int[]> listToAdd) {
         Square squareBehind = currentSquare.getNeighbours()[direction];
         while (squareBehind!=null && !squareBehind.isTaken()) {
@@ -34,19 +56,14 @@ public class QueenPiece extends PieceClass{
             squareBehind = squareBehind.getNeighbours()[direction];
         }
     }
-    private int[] checkCapture(Square sq, int direction) {
-        if (sq.isTaken() && sq.getTeam()!=this.getTeam()){
-            Square squareBehind = sq.getNeighbours()[direction];
-            if (squareBehind!=null && !squareBehind.isTaken()) {
-                return new int[]{squareBehind.getX(),squareBehind.getY(), 1,  this.PieceTypeId};//final squareX, final squareY, captureAvailable, jumped squareX, jumped squareY
-            }
-        }
-        return null;
-    }
 
+    /**
+     * Metoda sprawdzająca listę możliwych ruchów
+     * @param functionality - określa, czy król może poruszać się o wiele pól
+     * @return - lista dozwolonych ruchów
+     */
     @Override
     public List<int[]> checkLegalMoves(boolean functionality) {
-        //functionality: whether it can move for multiple squares at once
         List<int[]> nonCaptureMoves = new ArrayList<>();
         List<int[]> captureMoves = new ArrayList<>();
         if (functionality) {
@@ -63,8 +80,8 @@ public class QueenPiece extends PieceClass{
         } else {
             for (int i = 0; i<4; i++) {
                 if (neighbours[i]!=null){
-                    if (checkCapture(neighbours[i],i)!=null) {
-                        captureMoves.add(checkCapture(neighbours[i], i));
+                    if (checkCapture(neighbours[i],i,this.PieceTypeId)!=null) {
+                        captureMoves.add(checkCapture(neighbours[i], i, this.PieceTypeId));
                     }
                     else if (!neighbours[i].isTaken()) {
                         nonCaptureMoves.add(new int[] {neighbours[i].getX(), neighbours[i].getY(), 0, this.PieceTypeId});
@@ -80,6 +97,13 @@ public class QueenPiece extends PieceClass{
             return null;
         }
     }
+
+    /**
+     * Metoda zwracająca rodzaj bierki
+     * @return - typ bierki
+     */
     @Override
-    public PieceType getPieceType() {return PieceType.KING;}
+    public PieceType getPieceType() {
+        return PieceType.KING;
+    }
 }

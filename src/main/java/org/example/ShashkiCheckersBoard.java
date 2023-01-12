@@ -4,34 +4,44 @@ import net.CheckersClient;
 
 import java.util.List;
 
-public class ShashkiBoard extends CheckersBoard{
-    private static final boolean queenMovesOnDiagonals = true;
+/**
+ * Klasa warcabów rosyjskich
+ */
+public class ShashkiCheckersBoard extends CheckersBoard{
+    private static final boolean kingMovesOnDiagonals = true;
     private static final boolean movingBackwards = true;
 
-    public ShashkiBoard() {
+    /**
+     * Konstruktor rosyjskich warcabów
+     */
+    public ShashkiCheckersBoard() {
         lim = 8;
         rows = 3;
         board = new Square[lim][lim];
     }
+
+    /**
+     * Metoda mówiąca jak mogą poruszać się króle
+     * @return - zwraca informację, czy król może poruszać się po całych przekątnych
+     */
     @Override
-    public int getSize() {
-        return lim;
+    public boolean getKingLogic() {
+        return kingMovesOnDiagonals;
     }
 
-    @Override
-    public Square[][] getBoard() {
-        createBoard();
-        return board;
-    }
-    @Override
-    public boolean getQueenLogic() {
-        return queenMovesOnDiagonals;
-    }
+    /**
+     * Metoda mówiąca jak mogą poruszać się pionki
+     * @return - zwraca informację, czy pionki mogą poruszać się do tyłu
+     */
     @Override
     public boolean getBackwardsLogic() {
         return movingBackwards;
     }
 
+    /**
+     * Metoda sprawdzająca, czy możliwe jest wielokrotne bicie
+     * @param attemptedMove - współrzędne wykonanego ruchu
+     */
     @Override
     public void isSuccessiveCaptureAvailable(int[] attemptedMove) {
         Square[][] boardClone = CheckersBoard.board.clone();
@@ -50,7 +60,7 @@ public class ShashkiBoard extends CheckersBoard{
         CheckersClient.frame.successiveJumpedXYs.add(getJumpedPieceCoordinates(attemptedMove[0],attemptedMove[1],attemptedMove[2],attemptedMove[3]));
         List<int[]> possibleNextMoves;
         if (checkedPieceType == Piece.PieceType.KING) {
-            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(getQueenLogic());
+            possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(getKingLogic());
         } else {
             possibleNextMoves = boardClone[attemptedMove[2]][attemptedMove[3]].piece.checkLegalMoves(getBackwardsLogic());
         }

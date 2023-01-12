@@ -57,7 +57,7 @@ public class MoveAvailabilityTest {
         board[5][2].setPiece(Piece.Team.WHITE, Piece.PieceType.MAN);
 
         //you can jump backwards as a king
-        List<int[]> jump = board[4][3].piece.checkLegalMoves(checkersBoard.getQueenLogic());
+        List<int[]> jump = board[4][3].piece.checkLegalMoves(checkersBoard.getKingLogic());
         Assert.assertEquals(jump.size(),2);
         Assert.assertArrayEquals(jump.get(0), new int[]{2,1,1,1});
         Assert.assertArrayEquals(jump.get(1), new int[]{6,1,1,1});

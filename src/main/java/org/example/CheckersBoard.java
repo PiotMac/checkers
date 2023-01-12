@@ -6,21 +6,50 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class CheckersBoard{
+/**
+ * Abstrakcyjna klasa planszy do warcabów
+ */
+public abstract class CheckersBoard {
     public static Square[][] board;
-    int lim;
-    int rows;
-    public abstract int getSize();
-    public abstract Square[][] getBoard();
-    public abstract boolean getQueenLogic();
+    public static int lim;
+    public static int rows;
+
+    /**
+     * Metoda zwracająca rozmiar planszy
+     * @return - rozmiar planszy
+     */
+    public int getSize() {
+        return lim;
+    }
+
+    /**
+     * Metoda tworząca i zwracająca planszę
+     * @return - całą planszę
+     */
+    public Square[][] getBoard() {
+        createBoard();
+        return board;
+    }
+    public abstract boolean getKingLogic();
     public abstract boolean getBackwardsLogic();
+    public abstract void isSuccessiveCaptureAvailable(int[] attemptedMove);
+
+    /**
+     * Metoda aktualizująca ruch
+     * @param firstX - pierwsza współrzędna pierwszego kliknięcia
+     * @param firstY - druga współrzędna pierwszego kliknięcia
+     * @param secondX - pierwsza współrzędna drugiego kliknięcia
+     * @param secondY - druga współrzędna pierwszego kliknięcia
+     * @param yourMove - parametr sprawdzający od kogo jest ruch
+     * @param successiveCapMode - parametr sprawdzający, czy włączony jest tryb wielokrotnego bicia
+     * @return - zwraca współrzędne pól do zaktualizowania
+     */
     public List<int[]> updateMove(int firstX, int firstY, int secondX, int secondY, boolean yourMove, boolean successiveCapMode) {
         List<int[]> squaresToUpdate = new ArrayList<>();
         board[firstX][firstY].setTaken(false);
         squaresToUpdate.add(new int[] {firstX, firstY});
         squaresToUpdate.add(new int[] {secondX, secondY});
         boolean addedKing = false;
-
         int[] potentiallyJumped = getJumpedPieceCoordinates(firstX, firstY, secondX, secondY);
         if (potentiallyJumped!=null) {
             board[potentiallyJumped[0]][potentiallyJumped[1]].setTaken(false);
@@ -61,6 +90,15 @@ public abstract class CheckersBoard{
         }
         return squaresToUpdate;
     }
+
+    /**
+     * Metoda zwracająca współrzędne zbitych bierek
+     * @param firstClickX - pierwsza współrzędna pierwszego kliknięcia
+     * @param firstClickY - druga współrzędna pierwszego kliknięcia
+     * @param secondClickX - pierwsza współrzędna drugiego kliknięcia
+     * @param secondClickY - druga współrzędna drugiego kliknięcia
+     * @return - zwraca współrzędne zbitych bierek
+     */
     public int[] getJumpedPieceCoordinates(int firstClickX, int firstClickY, int secondClickX, int secondClickY) {
         final int xDelta = secondClickX-firstClickX;
         final int yDelta = secondClickY-firstClickY;
@@ -83,7 +121,12 @@ public abstract class CheckersBoard{
         }
         return null;
     }
-    public abstract void isSuccessiveCaptureAvailable(int[] attemptedMove);
+
+    /**
+     * Metoda sprawdzająca wszystkie legalne ruchy na planszy
+     * @param movingTeam - kolor gracza, który ma wykonać ruch
+     * @return - zwraca listę współrzędnych dozwolonych ruchów
+     */
     public List<int[]> checkForLegalMovesOnBoard(Piece.Team movingTeam) {
         List<int[]> notCaptureList = new ArrayList<>();
         List<int[]> captureList = new ArrayList<>();
@@ -94,7 +137,7 @@ public abstract class CheckersBoard{
                     Piece.PieceType type = CheckersBoard.board[i][j].piece.getPieceType();
                     boolean functionality;
                     if (type == Piece.PieceType.KING) {
-                        functionality = this.getQueenLogic();
+                        functionality = this.getKingLogic();
                     } else {
                         functionality = this.getBackwardsLogic();
                     }
@@ -119,6 +162,13 @@ public abstract class CheckersBoard{
             return notCaptureList;
         }
     }
+
+    /**
+     * Metoda sprawdzająca, czy dany ruch znajduje się na liście dozwolonych posunięć
+     * @param moveList - lista dozwolonych posunięć
+     * @param coordinates - współrzędne wykonanego ruchu
+     * @return - w przypadku, gdy ruch jest dozwolony zwraca się jego współrzędne
+     */
     public int[] checkForMoves(List<int[]> moveList, int[] coordinates) {
         for (int[] ints : moveList) {
             if (ints[0] == coordinates[0] && ints[1] == coordinates[1] && ints[2] == coordinates[2] && ints[3] == coordinates[3] ) {
@@ -128,6 +178,11 @@ public abstract class CheckersBoard{
         return null;
     }
 
+    /**
+     * Metoda aktualizująca planszę po wykonaniu wielokrotnego bicia
+     * @param attemptedMove - współrzędne wykonanego ruchu
+     * @param possibleNextMoves - lista ruchów po wykonaniu bicia
+     */
     void successfulCaptureChanges(int[] attemptedMove, List<int[]> possibleNextMoves) {
         boolean goodMove = false;
         if (possibleNextMoves!=null) {
@@ -154,6 +209,10 @@ public abstract class CheckersBoard{
             clearSuccessive();
         }
     }
+
+    /**
+     * Metoda usuwająca bierki po wielokrotnym biciu
+     */
     void clearSuccessive() {
         CheckersClient.frame.successiveCaptureMode = false;
         CheckersClient.frame.successiveX=-1;
@@ -161,7 +220,11 @@ public abstract class CheckersBoard{
         CheckersClient.frame.successiveJumpedXYs.clear();
     }
 
+    /**
+     * Metoda tworząca planszę oraz jej strukturę
+     */
     void createBoard() {
+        // Tworzenie pól i ich współrzędnych
         for (int i = 0; i < lim; i++) {
             for (int j = 0; j < lim; j++) {
                 if ((i+j)%2 != 0) {
@@ -173,7 +236,7 @@ public abstract class CheckersBoard{
                 }
             }
         }
-        //For every playable square set neighbours
+        // Ustawianie sąsiadów dla każdego grywalnego pola
         for (int i = 0; i < lim; i++) {
             for (int j = 0; j < lim; j++) {
                 if ((i+j)%2 != 0) {
@@ -181,7 +244,7 @@ public abstract class CheckersBoard{
                 }
             }
         }
-        //Set starting pieces
+        // Ustawianie początkowych pionków
         for (int i = 0; i < lim; i++) {
             for (int j = 0; j < lim; j++) {
                 if ((i+j)%2 != 0 && i < rows) {
