@@ -84,7 +84,7 @@ public abstract class CheckersBoard{
         return null;
     }
     public abstract void isSuccessiveCaptureAvailable(int[] attemptedMove);
-    public List<int[]> checkForLegalMovesOnBoard() {
+    public List<int[]> checkForLegalMovesOnBoard(Piece.Team movingTeam) {
         List<int[]> notCaptureList = new ArrayList<>();
         List<int[]> captureList = new ArrayList<>();
         boolean captureAvailable = false;
@@ -98,7 +98,7 @@ public abstract class CheckersBoard{
                     } else {
                         functionality = this.getBackwardsLogic();
                     }
-                    if (CheckersBoard.board[i][j].piece.checkLegalMoves(functionality) != null && CheckersBoard.board[i][j].isTaken() && CheckersBoard.board[i][j].getTeam().equals(CheckersClient.frame.thisPlayerTeam)) {
+                    if (CheckersBoard.board[i][j].piece.checkLegalMoves(functionality) != null && CheckersBoard.board[i][j].isTaken() && CheckersBoard.board[i][j].getTeam().equals(movingTeam)) {
                         for (int[] move : CheckersBoard.board[i][j].piece.checkLegalMoves(functionality)) {
                             if (move[2] > 0) {
                                 captureList.add(new int[]{i, j, move[0], move[1], move[2], move[3]});

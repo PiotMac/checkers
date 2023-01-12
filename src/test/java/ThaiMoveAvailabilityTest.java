@@ -1,4 +1,5 @@
 
+import net.CheckersClient;
 import org.example.CheckersBoard;
 import org.example.Piece;
 import org.example.Square;
@@ -7,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ThaiMoveAvailabilityTest {
@@ -60,15 +62,14 @@ public class ThaiMoveAvailabilityTest {
     }
 
 
-//    @Test
-//    public void initialMoveAvailabilityTest() {
-//        CheckersClient.frame = new CheckersClient();
-//        CheckersClient.frame.createBoard();
-//
-//        List<int[]> initialLegalMoves = checkersBoard.checkForLegalMovesOnBoard();
-//        for (int[] move : initialLegalMoves) {
-//            System.out.println(Arrays.toString(move));
-//        }
-//    }
+    @Test
+    public void initialMoveAvailabilityTest() {
+        Square[][] board = checkersBoard.getBoard();
+        //clearBoard(board);
+        List<int[]> initialLegalMoves = checkersBoard.checkForLegalMovesOnBoard(Piece.Team.BLACK);
+        for (int[] move : initialLegalMoves) {
+            System.out.println(Arrays.toString(move));
+        }
+    }
 
 }

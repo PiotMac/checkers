@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="further decentralized board code">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ShashkiMoveAvailabilityTest.java" afterDir="false" />
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="fixed minor movement bug, added more tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/QueenPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RegularPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MoveAvailabilityTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/NeighboursTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/ThaiMoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ThaiMoveAvailabilityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +151,8 @@
       <workItem from="1673454380997" duration="3269000" />
       <workItem from="1673461153951" duration="18971000" />
       <workItem from="1673528767612" duration="637000" />
-      <workItem from="1673529449982" duration="977000" />
+      <workItem from="1673529449982" duration="1069000" />
+      <workItem from="1673531523538" duration="3112000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -254,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673526700398</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fixed minor movement bug, added more tests">
+      <created>1673530481763</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1673530481763</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +293,8 @@
     <MESSAGE value="almost made it that only two players can join the server" />
     <MESSAGE value="stable version 1.0 - three playable variants" />
     <MESSAGE value="further decentralized board code" />
-    <option name="LAST_COMMIT_MESSAGE" value="further decentralized board code" />
+    <MESSAGE value="fixed minor movement bug, added more tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed minor movement bug, added more tests" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

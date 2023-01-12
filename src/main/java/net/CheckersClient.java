@@ -265,7 +265,7 @@ Połaczenie z socketem
         String[] coordinatesString = command.split(" ");
         List<int[]> legalMovesBoard = new ArrayList<>();
         if (!successiveCaptureMode) {
-            legalMovesBoard = frame.checkersBoard.checkForLegalMovesOnBoard();
+            legalMovesBoard = frame.checkersBoard.checkForLegalMovesOnBoard(frame.thisPlayerTeam);
         } else {
             Piece.PieceType pieceType = CheckersBoard.board[successiveX][successiveY].piece.getPieceType();
             boolean functionality;
