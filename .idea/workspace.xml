@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="added parameter to checkForLegalMovesOnBoard">
+    <list default="true" id="c8fd4f15-30e9-4d83-8dd0-7c056eb06fe6" name="Changes" comment="fixed small bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/CheckersClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/EnglishCheckersBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/KingPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/KingPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ThaiMoveAvailabilityTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ThaiMoveAvailabilityTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -51,6 +52,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -87,6 +89,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="net.test" />
+      <module name="checkers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in checkers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="checkers" />
       <option name="PACKAGE_NAME" value="" />
@@ -105,30 +120,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ThaiMoveAvailabilityTest.successiveCaptureSim" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="checkers" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ThaiMoveAvailabilityTest" />
-      <option name="METHOD_NAME" value="successiveCaptureSim" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
+      <item itemvalue="Application.test" />
       <item itemvalue="Application.CheckersClient" />
       <item itemvalue="Application.CheckersServerThread" />
       <item itemvalue="JUnit.ThaiMoveAvailabilityTest.doubleOpposingSquareKingTest" />
-      <item itemvalue="JUnit.ThaiMoveAvailabilityTest.successiveCaptureSim" />
       <item itemvalue="JUnit.All in checkers" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.CheckersClient" />
         <item itemvalue="Application.CheckersServerThread" />
+        <item itemvalue="Application.test" />
         <item itemvalue="JUnit.ThaiMoveAvailabilityTest.doubleOpposingSquareKingTest" />
         <item itemvalue="JUnit.All in checkers" />
-        <item itemvalue="JUnit.ThaiMoveAvailabilityTest.successiveCaptureSim" />
       </list>
     </recent_temporary>
   </component>
@@ -157,7 +162,8 @@
       <workItem from="1673528767612" duration="637000" />
       <workItem from="1673529449982" duration="1069000" />
       <workItem from="1673531523538" duration="6025000" />
-      <workItem from="1673553188315" duration="4020000" />
+      <workItem from="1673553188315" duration="9114000" />
+      <workItem from="1673695903157" duration="7693000" />
     </task>
     <task id="LOCAL-00001" summary="Square and Board 1st attempt">
       <created>1670862696691</created>
@@ -271,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673535493539</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fixed small bug">
+      <created>1673557368265</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1673557368265</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,7 +320,8 @@
     <MESSAGE value="further decentralized board code" />
     <MESSAGE value="fixed minor movement bug, added more tests" />
     <MESSAGE value="added parameter to checkForLegalMovesOnBoard" />
-    <option name="LAST_COMMIT_MESSAGE" value="added parameter to checkForLegalMovesOnBoard" />
+    <MESSAGE value="fixed small bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed small bug" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
