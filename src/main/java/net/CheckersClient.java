@@ -30,11 +30,12 @@ public class CheckersClient extends Frame implements ActionListener {
     public int successiveY = -1;
     public final List<int[]> successiveJumpedXYs = new ArrayList<>();
     private Dimension checkersBoardSize;
-    Font font = new Font("Arial", Font.PLAIN, 20);
+    Font font = new Font("Segoe UI Symbol", Font.TRUETYPE_FONT, 20);
     private int player;
     public final static int PLAYER1 = 1;
     public final static int PLAYER2 = 2;
     String str;
+    private int[] botMove;
 
     /**
      * Konstruktor klienta
@@ -189,7 +190,8 @@ public class CheckersClient extends Frame implements ActionListener {
                     buttons[i][j] = new Button("");
                     buttons[i][j].setBackground(Color.RED);
                 } else if (CheckersBoard.board[i][j].isTaken() && CheckersBoard.board[i][j].getTeam() == Piece.Team.BLACK) {
-                    buttons[i][j] = new Button("O");
+                    buttons[i][j] = new Button();
+                    buttons[i][j].setLabel("O");
                     //buttons[count] = new Button("\u26C2");
                     buttons[i][j].setForeground(Color.BLACK);
                     buttons[i][j].setBackground(Color.RED);
@@ -297,9 +299,12 @@ public class CheckersClient extends Frame implements ActionListener {
             }
             String[] coordinates = str.split(" ");
             // Jeżeli ten gracz zrobił ruch
-            if(coordinates.length==1 && Integer.parseInt(coordinates[0])==0) {
+            if(coordinates.length==1 && Integer.parseInt(coordinates[0])==0 && frame.player == PLAYER1) {
                 updateMove(frame.first_click[0], frame.first_click[1], frame.second_click[0], frame.second_click[1], true, successiveCaptureMode);
+            } else if (coordinates.length==1 && Integer.parseInt(coordinates[0])==0 && frame.player == PLAYER2) {
+                updateMove(botMove[0],botMove[1],botMove[2],botMove[3], true, successiveCaptureMode);
             }
+           // }
             // Jeżeli przeciwnik zrobił ruch
             else {
                 int[] coords = new int[6];
@@ -318,15 +323,8 @@ public class CheckersClient extends Frame implements ActionListener {
             System.exit(1);
         }
     }
-    /**
-     * Metoda reagująca na kliknięcie przycisku
-     * @param e the event to be processed
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Odbieranie współrzędnych przycisku
-        String command = e.getActionCommand();
-        String[] coordinatesString = command.split(" ");
+
+    private List<int[]> setUpLegalMovesBoard() {
         List<int[]> legalMovesBoard = new ArrayList<>();
         if (!successiveCaptureMode) {
             legalMovesBoard = frame.checkersBoard.checkForLegalMovesOnBoard(frame.thisPlayerTeam);
@@ -345,6 +343,43 @@ public class CheckersClient extends Frame implements ActionListener {
                 }
             }
         }
+        return legalMovesBoard;
+    }
+    public void action() {
+        List<int[]> legalMoves = setUpLegalMovesBoard();
+        if (legalMoves.isEmpty()) {
+            System.out.println("GAME OVER, YOU LOST");
+            frame.out.println("END");
+            System.exit(0);
+        }
+        if (frame.player==PLAYER2) {
+            Collections.shuffle(legalMoves);
+            int[] attemptedMove = legalMoves.get(0);
+            attemptedMovedPieceType = CheckersBoard.board[attemptedMove[0]][attemptedMove[1]].piece.getPieceType();
+            if (attemptedMove[4]==1) {
+                frame.checkersBoard.isSuccessiveCaptureAvailable(attemptedMove);
+            }
+            if (successiveCaptureMode) {
+                attemptedMove[4]=2;
+            }
+            send(attemptedMove);
+            botMove = attemptedMove;
+            receive();
+
+        }
+    }
+
+    /**
+     * Metoda reagująca na kliknięcie przycisku
+     * @param e the event to be processed
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Odbieranie współrzędnych przycisku
+        String command = e.getActionCommand();
+        String[] coordinatesString = command.split(" ");
+        List<int[]> legalMovesBoard = setUpLegalMovesBoard();
+        action();
         // Otrzymywanie współrzędnych pierwszego kliknięcia
         if (frame.first_click[0] == -1) {
             frame.first_click[0] = Integer.parseInt(coordinatesString[0]);
